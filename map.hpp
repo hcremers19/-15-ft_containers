@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helloworld.cpp                                     :+:      :+:    :+:   */
+/*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 10:53:40 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/07 10:55:00 by hcremers         ###   ########.fr       */
+/*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
+/*   Updated: 2022/11/07 12:05:36 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef MAP_HPP
+# define MAP_HPP
 
-int	main(void)
-{
-	std::cout << "Hello world!" << std::endl;
-	return (0);
-}
+#endif
