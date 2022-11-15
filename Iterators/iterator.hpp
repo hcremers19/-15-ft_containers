@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:12:18 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/15 12:27:57 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/15 18:47:27 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 	template<class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-	class Iterator
+	class iterator																// Is defined as a struct on cplusplus.com but class may be easier to use
 	{
 		public:
 			typedef Category	iterator_category;
@@ -31,3 +31,7 @@ namespace ft
 }
 
 #endif
+
+/* ----------------------------------------------------------------------------
+Source: https://cplusplus.com/reference/iterator/iterator/
+----------------------------------------------------------------------------- */
