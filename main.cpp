@@ -6,22 +6,22 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/08 15:15:24 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/17 19:22:09 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 1 // CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
 	namespace ft = std;
 #else
-	#include <map.hpp>
-	#include <stack.hpp>
-	#include <vector.hpp>
+	#include "Containers/map.hpp"
+	#include "Containers/stack.hpp"
+	#include "Containers/vector.hpp"
 #endif
 
 #include <stdlib.h>
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 		{
 			const int idx = rand() % COUNT;
 			vector_buffer.at(idx);
-			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
+			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" << std::endl;
 		}
 	}
 	catch(const std::exception& e)

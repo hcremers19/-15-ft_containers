@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:38:52 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/15 18:42:52 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/17 12:38:18 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ namespace ft
 			random_access_iterator&	operator=(const random_access_iterator& rhs);
 			reference				operator*() const;
 			pointer					operator->() const;
-			random_access_iterator&	operator++();										// pre-incrementation
-			random_access_iterator	operator++(int);									// post-incrementation
-			random_access_iterator&	operator--();										// pre-decrementation
-			random_access_iterator	operator--(int);									// post-decrementation
+			random_access_iterator&	operator++();
+			random_access_iterator	operator++(int);
+			random_access_iterator&	operator--();
+			random_access_iterator	operator--(int);
 			random_access_iterator	operator+(difference_type rhs) const;
 			random_access_iterator	operator-(difference_type rhs) const;
 			random_access_iterator	operator+=(difference_type rhs);
