@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:17:43 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/17 19:11:27 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/18 12:12:33 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,254 +28,222 @@ namespace ft
 			typedef typename	iterator_traits<Iterator>::pointer				pointer;
 			typedef typename	iterator_traits<Iterator>::reference			reference;
 
-			reverse_iterator();
-			explicit reverse_iterator(iterator_type it);
-			template<class Iter>
-			reverse_iterator(const reverse_iterator<Iter>& rev_it);
-			~reverse_iterator();
-
-								operator reverse_iterator<const Iterator>() const;	// ???
-
-			reference			operator*() const;
-			reverse_iterator	operator+(difference_type n) const;
-			reverse_iterator&	operator++();
-			reverse_iterator	operator++(int);
-			reverse_iterator&	operator+=(difference_type n);
-			reverse_iterator	operator-(difference_type n) const;
-			reverse_iterator&	operator--();
-			reverse_iterator	operator--(int);
-			reverse_iterator&	operator-=(difference_type n);
-			pointer				operator->() const;
-			reference			operator[](difference_type val) const;
-
-			iterator_type		base() const;
-
 		private:
 			iterator_type		_base_iterator;
+
+		public:
+			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
+
+			/* ------------------------------------------------------------------------
+			Default constructor
+				Constructs a reverse iterator that points to no object.
+				The internal base iterator is value-initialized.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
+			------------------------------------------------------------------------ */
+			reverse_iterator()
+				{return ;}
+
+			/* ------------------------------------------------------------------------
+			Initalization constructor
+				Constructs a reverse iterator from some original iterator it. The behavior of the constructed object replicates the original, except that it iterates through its pointed elements in the reverse order.
+
+			it
+				An iterator, whose sense of iteration is inverted in the constructed object.
+				Member type iterator_type is the underlying bidirectional iterator type (the class template parameter: Iterator).
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
+			------------------------------------------------------------------------ */
+			reverse_iterator(iterator_type it) : _base_iterator(it)
+				{return ;}
+
+			/* ------------------------------------------------------------------------
+			Copy / type-cast constructor
+				Constructs a reverse iterator from some other reverse iterator. The constructed object keeps the same sense of iteration as rev_it.
+
+			rev_it
+				An iterator of a reverse_iterator type, whose sense of iteration is preserved.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
+			------------------------------------------------------------------------ */
+			template<class Iter>
+			reverse_iterator(const reverse_iterator<Iter>& rev_it) : _base_iterator(rev_it.base())
+				{return ;}
+
+			/* ------------------------------------------------------------------------
+			Destructor
+			------------------------------------------------------------------------ */
+			~reverse_iterator()
+				{return ;}
+
+
+			/* ----- OPERATOR OVERLOADS ----- */
+
+			/* ------------------------------------------------------------------------
+			???
+			------------------------------------------------------------------------ */
+			operator			reverse_iterator<const Iterator>() const
+				{return (_base_iterator);}
+
+			/* ------------------------------------------------------------------------
+			Dereference iterator
+				Returns a reference to the element pointed to by the iterator.
+				Internally, the function decreases a copy of its base iterator and returns the result of dereferencing it.
+				The iterator shall point to some object in order to be dereferenceable.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator%2a/
+			------------------------------------------------------------------------ */
+			reference			operator*() const
+			{
+				iterator_type tmp(_base_iterator);
+				return (*(--tmp));
+			}
+
+			/* ------------------------------------------------------------------------
+			Addition operator
+				Returns a reverse iterator pointing to the element located n positions away from the element the iterator currently points to.
+				Internally, the function applies the binary operator- on the base iterator and returns a reverse iterator constructed with the resulting iterator value.
+				Note that this function requires the base iterator to be a random-access iterator.
+				This operator is also overloaded as a non-member function, with the left-hand and right-hand types inverted, but this the same behavior (see operator+).
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator+/
+			------------------------------------------------------------------------ */
+			reverse_iterator	operator+(difference_type n) const
+				{return (reverse_iterator(_base_iterator - n));}
+
+			/* ------------------------------------------------------------------------
+			Pre-increment iterator position
+				Advances the reverse_iterator by one position.
+				Internally, decrements the base iterator kept by the object (as if applying operator-- to it).
+				Returns *this.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator++/
+			------------------------------------------------------------------------ */
+			reverse_iterator&	operator++()
+			{
+				--_base_iterator;
+				return (*this);
+			}
+
+			/* ------------------------------------------------------------------------
+			Post-increment iterator position
+				Advances the reverse_iterator by one position.
+				Internally, decrements the base iterator kept by the object (as if applying operator-- to it).
+				Returns the value *this had before the call.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator++/
+			------------------------------------------------------------------------ */
+			reverse_iterator	operator++(int)
+			{
+				reverse_iterator	tmp(*this);
+				--_base_iterator;
+				return (tmp);
+			}
+
+			/* ------------------------------------------------------------------------
+			Advance iterator
+				Advances the reverse_iterator by n element positions.
+				Internally, the function decreases by n the base iterator kept by the object (as if applying operator-= to it).
+				Note that this function requires the base iterator to be a random-access iterator.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator+=/
+			------------------------------------------------------------------------ */
+			reverse_iterator&	operator+=(difference_type n)
+			{
+				_base_iterator -= n;
+				return (*this);
+			}
+
+			/* ------------------------------------------------------------------------
+			Subtraction operator
+				Returns a reverse iterator pointing to the element located n positions before the element the iterator currently points to.
+				Internally, the function applies the binary operator+ on the base iterator and returns a reverse iterator constructed with the resulting iterator value.
+				Note that this function requires the base iterator to be a random-access iterator.
+				This operator is also overloaded as a non-member function to return the difference of subtracting iterators: see operator-).
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator-/
+			------------------------------------------------------------------------ */
+			reverse_iterator	operator-(difference_type n) const
+				{return (reverse_iterator(_base_iterator + n));}
+
+			/* ------------------------------------------------------------------------
+			Pre-decrement iterator position
+				Decreases the reverse_iterator by one position.
+				Internally, increments the base iterator kept by the object (as if applying operator++ to it).
+				Returns *this.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator--/
+			------------------------------------------------------------------------ */
+			reverse_iterator&	operator--()
+			{
+				++_base_iterator;
+				return (*this);
+			}
+
+			/* ------------------------------------------------------------------------
+			Post-decrement iterator position
+				Decreases the reverse_iterator by one position.
+				Internally, increments the base iterator kept by the object (as if applying operator++ to it).
+				Returns the value *this had before the call.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator--/
+			------------------------------------------------------------------------ */
+			reverse_iterator	operator--(int)
+			{
+				reverse_iterator	tmp(*this);
+				++_base_iterator;
+				return (tmp);
+			}
+
+			/* ------------------------------------------------------------------------
+			Retrocede iterator
+				Descreases the reverse_iterator by n element positions.
+				Internally, the function increases by n the base iterator kept by the object (as if applying operator+= to it).
+				Note that this function requires the base iterator to be a random-access iterator.
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator-=/
+			------------------------------------------------------------------------ */
+			reverse_iterator&	operator-=(difference_type n)
+			{
+				_base_iterator += n;
+				return (*this);
+			}
+
+			/* ------------------------------------------------------------------------
+			Dereference iterator
+				Returns a pointer to the element pointed to by the iterator (in order to access one of its members).
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator-%3E/
+			------------------------------------------------------------------------ */
+			pointer				operator->() const
+				{return (&operator*());}
+
+			/* ------------------------------------------------------------------------
+			Dereference iterator with offset
+				Accesses the element located n positions away from the element currently pointed to by the iterator.
+				If such an element does not exist, it causes undefined behavior.
+				Internally, the function accesses the proper element of its base iterator, returning the same as: base()[-n-1].
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator[]/
+			------------------------------------------------------------------------ */
+			reference			operator[](difference_type n) const
+			{
+				return (*(_base_iterator - n - 1));
+			}
+
+
+			/* ----- MEMBER FUNCTION ----- */
+
+			/* ------------------------------------------------------------------------
+			Return base iterator
+				Returns a copy of the base iterator.
+				The base iterator is an iterator of the same type as the one used to construct the reverse_iterator, but pointing to the element next to the one the reverse_iterator is currently pointing to (a reverse_iterator has always an offset of -1 with respect to its base iterator).
+
+			Source: https://cplusplus.com/reference/iterator/reverse_iterator/base/
+			------------------------------------------------------------------------ */
+			iterator_type		base() const
+				{return (_base_iterator);}
 	};
-
-
-	/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
-
-	/* ------------------------------------------------------------------------
-	Default constructor
-		Constructs a reverse iterator that points to no object.
-		The internal base iterator is value-initialized.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>::reverse_iterator()
-		{return ;}
-
-	/* ------------------------------------------------------------------------
-	Initalization constructor
-		Constructs a reverse iterator from some original iterator it. The behavior of the constructed object replicates the original, except that it iterates through its pointed elements in the reverse order.
-
-	it
-		An iterator, whose sense of iteration is inverted in the constructed object.
-		Member type iterator_type is the underlying bidirectional iterator type (the class template parameter: Iterator).
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>::reverse_iterator(iterator_type it) : _base_iterator(it)
-		{return ;}
-
-	/* ------------------------------------------------------------------------
-	Copy / type-cast constructor
-		Constructs a reverse iterator from some other reverse iterator. The constructed object keeps the same sense of iteration as rev_it.
-
-	rev_it
-		An iterator of a reverse_iterator type, whose sense of iteration is preserved.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	template<class Iter>
-	reverse_iterator<Iterator>::reverse_iterator(const reverse_iterator<Iter>& rev_it) : _base_iterator(rev_it.base())
-		{return ;}
-
-	/* ------------------------------------------------------------------------
-	Destructor
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>::~reverse_iterator(void)
-		{return ;}
-
-
-	/* ----- OPERATOR OVERLOADS ----- */
-
-	/* ------------------------------------------------------------------------
-	???
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>::operator					reverse_iterator<const Iterator>() const
-		{return (_base_iterator);}
-
-	/* ------------------------------------------------------------------------
-	Dereference iterator
-		Returns a reference to the element pointed to by the iterator.
-		Internally, the function decreases a copy of its base iterator and returns the result of dereferencing it.
-		The iterator shall point to some object in order to be dereferenceable.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator%2a/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	typename reverse_iterator<Iterator>::reference			reverse_iterator<Iterator>::operator*() const
-	{
-		reverse_iterator<Iterator>::iterator_type tmp(_base_iterator);
-		return (*(--tmp));
-	}
-
-	/* ------------------------------------------------------------------------
-	Addition operator
-		Returns a reverse iterator pointing to the element located n positions away from the element the iterator currently points to.
-		Internally, the function applies the binary operator- on the base iterator and returns a reverse iterator constructed with the resulting iterator value.
-		Note that this function requires the base iterator to be a random-access iterator.
-		This operator is also overloaded as a non-member function, with the left-hand and right-hand types inverted, but this the same behavior (see operator+).
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator+/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>								reverse_iterator<Iterator>::operator+(reverse_iterator<Iterator>::difference_type n) const
-		{return (reverse_iterator<Iterator>(_base_iterator - n));}
-
-	/* ------------------------------------------------------------------------
-	Pre-increment iterator position
-		Advances the reverse_iterator by one position.
-		Internally, decrements the base iterator kept by the object (as if applying operator-- to it).
-		Returns *this.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator++/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>&								reverse_iterator<Iterator>::operator++()
-	{
-		--_base_iterator;
-		return (*this);
-	}
-
-	/* ------------------------------------------------------------------------
-	Post-increment iterator position
-		Advances the reverse_iterator by one position.
-		Internally, decrements the base iterator kept by the object (as if applying operator-- to it).
-		Returns the value *this had before the call.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator++/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>								reverse_iterator<Iterator>::operator++(int)
-	{
-		reverse_iterator<Iterator>	tmp(*this);
-		--_base_iterator;
-		return (tmp);
-	}
-
-	/* ------------------------------------------------------------------------
-	Advance iterator
-		Advances the reverse_iterator by n element positions.
-		Internally, the function decreases by n the base iterator kept by the object (as if applying operator-= to it).
-		Note that this function requires the base iterator to be a random-access iterator.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator+=/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>&								reverse_iterator<Iterator>::operator+=(reverse_iterator<Iterator>::difference_type n)
-	{
-		_base_iterator -= n;
-		return (*this);
-	}
-
-	/* ------------------------------------------------------------------------
-	Subtraction operator
-		Returns a reverse iterator pointing to the element located n positions before the element the iterator currently points to.
-		Internally, the function applies the binary operator+ on the base iterator and returns a reverse iterator constructed with the resulting iterator value.
-		Note that this function requires the base iterator to be a random-access iterator.
-		This operator is also overloaded as a non-member function to return the difference of subtracting iterators: see operator-).
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator-/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>								reverse_iterator<Iterator>::operator-(reverse_iterator<Iterator>::difference_type n) const
-		{return (reverse_iterator<Iterator>(_base_iterator + n));}
-
-	/* ------------------------------------------------------------------------
-	Pre-decrement iterator position
-		Decreases the reverse_iterator by one position.
-		Internally, increments the base iterator kept by the object (as if applying operator++ to it).
-		Returns *this.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator--/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>&								reverse_iterator<Iterator>::operator--()
-	{
-		++_base_iterator;
-		return (*this);
-	}
-
-	/* ------------------------------------------------------------------------
-	Post-decrement iterator position
-		Decreases the reverse_iterator by one position.
-		Internally, increments the base iterator kept by the object (as if applying operator++ to it).
-		Returns the value *this had before the call.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator--/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>								reverse_iterator<Iterator>::operator--(int)
-	{
-		reverse_iterator<Iterator>	tmp(*this);
-		++_base_iterator;
-		return (tmp);
-	}
-
-	/* ------------------------------------------------------------------------
-	Retrocede iterator
-		Descreases the reverse_iterator by n element positions.
-		Internally, the function increases by n the base iterator kept by the object (as if applying operator+= to it).
-		Note that this function requires the base iterator to be a random-access iterator.
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator-=/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	reverse_iterator<Iterator>&								reverse_iterator<Iterator>::operator-=(reverse_iterator<Iterator>::difference_type n)
-	{
-		_base_iterator += n;
-		return (*this);
-	}
-
-	/* ------------------------------------------------------------------------
-	Dereference iterator
-		Returns a pointer to the element pointed to by the iterator (in order to access one of its members).
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator-%3E/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	typename reverse_iterator<Iterator>::pointer			reverse_iterator<Iterator>::operator->() const
-		{return (&operator*());}
-	
-	/* ------------------------------------------------------------------------
-	Dereference iterator with offset
-		Accesses the element located n positions away from the element currently pointed to by the iterator.
-		If such an element does not exist, it causes undefined behavior.
-		Internally, the function accesses the proper element of its base iterator, returning the same as: base()[-n-1].
-
-	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator[]/
-	------------------------------------------------------------------------ */
-	template<class Iterator>
-	typename reverse_iterator<Iterator>::reference			reverse_iterator<Iterator>::operator[](reverse_iterator<Iterator>::difference_type n) const
-	{
-		return (*(_base_iterator - n - 1));
-	}
-
-
-	/* ----- MEMBER FUNCTION ----- */
-
-	template<class Iterator>
-	typename reverse_iterator<Iterator>::iterator_type		reverse_iterator<Iterator>::base() const
-		{return (_base_iterator);}
 
 
 	/* ----- NON-MEMBER FUNCTION OVERLOADS ----- */
@@ -289,7 +257,7 @@ namespace ft
 	template<class Iterator>
 	bool													operator==(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 		{return (lhs.base() == rhs.base());}
-	
+
 	/* ------------------------------------------------------------------------
 	"Not equal to" operator
 		Performs the appropriate comparison operation between the reverse_iterator objects lhs and rhs.
@@ -299,7 +267,7 @@ namespace ft
 	template<class Iterator>
 	bool													operator!=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 		{return (lhs.base() != rhs.base());}
-	
+
 	/* ------------------------------------------------------------------------
 	"Less than" operator
 		Performs the appropriate comparison operation between the reverse_iterator objects lhs and rhs.
@@ -309,7 +277,7 @@ namespace ft
 	template<class Iterator>
 	bool													operator<(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 		{return (lhs.base() > rhs.base());}
-	
+
 	/* ------------------------------------------------------------------------
 	"Less than or equal to" operator
 		Performs the appropriate comparison operation between the reverse_iterator objects lhs and rhs.
@@ -319,7 +287,7 @@ namespace ft
 	template<class Iterator>
 	bool													operator<=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 		{return (lhs.base() >= rhs.base());}
-	
+
 	/* ------------------------------------------------------------------------
 	"Greater than" operator
 		Performs the appropriate comparison operation between the reverse_iterator objects lhs and rhs.
@@ -329,7 +297,7 @@ namespace ft
 	template<class Iterator>
 	bool													operator>(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 		{return (lhs.base() < rhs.base());}
-	
+
 	/* ------------------------------------------------------------------------
 	"Greater than or equal to" operator
 		Performs the appropriate comparison operation between the reverse_iterator objects lhs and rhs.
@@ -359,7 +327,7 @@ namespace ft
 
 	Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator_minus-free/
 	------------------------------------------------------------------------ */
-	template<class Iterator> 
+	template<class Iterator>
 	typename reverse_iterator<Iterator>::difference_type	operator-(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 		{return (rhs.base() - lhs.base());}
 }
