@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:38:52 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/18 14:42:39 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:44:03 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ namespace ft
 			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
 
 			random_access_iterator()
-				{return ;}
+				{return;}
 
 			random_access_iterator(const random_access_iterator& src) : _content(src._content)
-				{return ;}
+				{return;}
 
 			random_access_iterator(pointer ptr) : _content(ptr)
-				{return ;}
+				{return;}
 
 			~random_access_iterator()
-				{return ;}
+				{return;}
 
 
 			/* ----- OPERATOR OVERLOADS ----- */

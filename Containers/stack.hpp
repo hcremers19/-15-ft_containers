@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/21 14:37:16 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:43:54 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/stack/stack/stack/
 			-------------------------------------------------------------------------------- */
 			explicit stack(const container_type& ctnr = container_type()) : c(ctnr)
-				{return ;}
+				{return;}
 
 
 			/* ----- MEMBER FUNCTIONS -----*/
@@ -104,7 +104,7 @@ namespace ft
 			void				push(const value_type& val)
 			{
 				c.push_back(val);
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -131,7 +131,7 @@ namespace ft
 
 	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
-	template <class T, class Container>
+	template<class T, class Container>
 	bool	operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 		{return (lhs.c == rhs.c);}
 
@@ -142,7 +142,7 @@ namespace ft
 
 	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
-	template <class T, class Container>
+	template<class T, class Container>
 	bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 		{return (lhs.c != rhs.c);}
 
@@ -153,7 +153,7 @@ namespace ft
 
 	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
-	template <class T, class Container>
+	template<class T, class Container>
 	bool	operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 		{return (lhs.c < rhs.c);}
 
@@ -164,7 +164,7 @@ namespace ft
 
 	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
-	template <class T, class Container>
+	template<class T, class Container>
 	bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 		{return (lhs.c <= rhs.c);}
 
@@ -175,7 +175,7 @@ namespace ft
 
 	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
-	template <class T, class Container>
+	template<class T, class Container>
 	bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 		{return (lhs.c > rhs.c);}
 
@@ -186,7 +186,7 @@ namespace ft
 
 	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
-	template <class T, class Container>
+	template<class T, class Container>
 	bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
 		{return (lhs.c >= rhs.c);}
 }

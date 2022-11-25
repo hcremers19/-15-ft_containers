@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:12:18 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/18 14:42:27 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/22 10:59:17 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 # define ITERATOR_HPP
 
 # include <cstddef>
-# include "iterator_traits.hpp"
 
 namespace ft
 {
 	template<class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-	class iterator																// Is defined as a struct on cplusplus.com but class may be easier to use
+	class iterator
 	{
 		public:
 			typedef Category	iterator_category;

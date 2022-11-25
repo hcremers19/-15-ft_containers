@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:17:43 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/18 14:48:40 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:44:03 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 			reverse_iterator()
 			{
 				_base_iterator = NULL;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
 			-------------------------------------------------------------------------------- */
 			explicit reverse_iterator(iterator_type it) : _base_iterator(it)
-				{return ;}
+				{return;}
 
 			/* --------------------------------------------------------------------------------
 			- Copy / type-cast constructor -
@@ -71,13 +71,13 @@ namespace ft
 			-------------------------------------------------------------------------------- */
 			template<class Iter>
 			reverse_iterator(const reverse_iterator<Iter>& rev_it) : _base_iterator(rev_it.base())
-				{return ;}
+				{return;}
 
 			/* --------------------------------------------------------------------------------
 			- Destructor -
 			-------------------------------------------------------------------------------- */
 			~reverse_iterator()
-				{return ;}
+				{return;}
 
 
 			/* ----- OPERATOR OVERLOADS ----- */

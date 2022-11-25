@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/21 13:37:52 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:18:56 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ namespace ft
 	class vector
 	{
 		public:																	// Need to declare some public types here to use them privately just after
-			typedef				T												value_type;
-			typedef				Alloc											allocator_type;
-			typedef				value_type&										reference;
-			typedef				const value_type&								const_reference;
-			typedef				value_type*										pointer;
-			typedef				const value_type*								const_pointer;
-			typedef typename	ft::random_access_iterator<value_type>			iterator;
-			typedef typename	ft::random_access_iterator<const value_type>	const_iterator;
-			typedef typename	ft::reverse_iterator<iterator>					reverse_iterator;
-			typedef typename	ft::reverse_iterator<const_iterator>			const_reverse_iterator;
-			typedef typename	ft::iterator_traits<iterator>::difference_type	difference_type;
-			typedef				size_t											size_type;
+			typedef				T											value_type;
+			typedef				Alloc										allocator_type;
+			typedef				value_type&									reference;
+			typedef				const value_type&							const_reference;
+			typedef				value_type*									pointer;
+			typedef				const value_type*							const_pointer;
+			typedef typename	random_access_iterator<value_type>			iterator;
+			typedef typename	random_access_iterator<const value_type>	const_iterator;
+			typedef typename	reverse_iterator<iterator>					reverse_iterator;
+			typedef typename	reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef typename	iterator_traits<iterator>::difference_type	difference_type;
+			typedef				size_t										size_type;
 
 		private:
 			pointer 			_container;
@@ -60,7 +60,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
 			explicit vector(const allocator_type& alloc = allocator_type()) : _container(NULL), _size(0), _capacity(0), _alloc(alloc)
-				{return ;}
+				{return;}
 
 			/* --------------------------------------------------------------------------------
 			- Fill constructor -
@@ -87,7 +87,7 @@ namespace ft
 				_container = _alloc.allocate(n);
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(_container + i, val);
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ namespace ft
 				_container = _alloc.allocate(_size);
 				for (size_type i = 0; first != last; i++)
 					_alloc.construct(_container + i, *first);
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -136,11 +136,15 @@ namespace ft
 				_container = _alloc.allocate(_size);
 				for (size_type i = 0; first != last; first++, i++)
 					_alloc.construct(_container + i, *first);
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
-			- Destructor -
+			- Vector destructor -
+				Destroys the container object.
+				This destroys all container elements, and deallocates all the storage capacity allocated by the vector using its allocator.
+
+			Source: https://legacy.cplusplus.com/reference/vector/vector/~vector/
 			-------------------------------------------------------------------------------- */
 			~vector()
 			{
@@ -149,7 +153,7 @@ namespace ft
 				for (iterator it = begin(); it != end(); it++, n++)
 					_alloc.destroy(_container + n);
 				_alloc.deallocate(_container, _capacity);
-				return ;
+				return;
 			}
 
 
@@ -329,7 +333,7 @@ namespace ft
 					for (size_type i = n; i < _size; i++)
 						_alloc.destroy(_container + i);
 				_size = n;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -368,7 +372,7 @@ namespace ft
 				if (n > max_size())
 					throw (std::out_of_range("vector::reserve"));
 				else if (_capacity >= n)
-					return ;
+					return;
 				pointer	tmp = _alloc.allocate(n);
 
 				for (size_type i = 0; i < _size; i++)
@@ -379,7 +383,7 @@ namespace ft
 				_alloc.deallocate(_container, _capacity);
 				_container = tmp;
 				_capacity = n;
-				return ;
+				return;
 			}
 
 			/* ELEMENT ACCESS */
@@ -487,7 +491,7 @@ namespace ft
 				for (size_type i = 0; i < size; i++, first++)
 					_alloc.construct(_container + i, *first);
 				_size = size;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -519,7 +523,7 @@ namespace ft
 				for (size_type i = 0; i < n; i++)
 					_alloc.construct(_container + i, val);
 				_size = n;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -535,7 +539,7 @@ namespace ft
 					reserve(_capacity ? _capacity * 2 : 1);
 				_alloc.construct(_container + _size, val);
 				_size++;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -548,10 +552,10 @@ namespace ft
 			void					pop_back()
 			{
 				if (!_size)
-					return ;
+					return;
 				_alloc.destroy(_container + _size - 1);
 				_size--;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -640,7 +644,7 @@ namespace ft
 						_alloc.construct(_container + i, val);
 				}
 				_size += n;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -702,7 +706,7 @@ namespace ft
 						_alloc.construct(_container + i, *first++);
 				}
 				_size += dist;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -767,7 +771,7 @@ namespace ft
 				x._container = tmp_container;
 				x._size = tmp_size;
 				x._capacity = tmp_capacity;
-				return ;
+				return;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -782,7 +786,7 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(_container + i);
 				_size = 0;
-				return ;
+				return;
 			}
 
 			/* ALLOCATOR */
@@ -878,7 +882,7 @@ namespace ft
 	void 							swap(vector<T, Alloc>& x, vector<T, Alloc>& y)
 	{
 		x.swap(y);
-		return ;
+		return;
 	}
 }
 
