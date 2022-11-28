@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/25 19:08:43 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:33:03 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ namespace ft
 			typedef T													value_type;
 			typedef red_black_node<value_type, Compare>					node_type;
 			typedef red_black_node<const value_type, Compare>			node_const_type;
-			typedef typename Alloc::template rebind<node_type>::other	allocator_type;
+			typedef Alloc::template rebind<node_type>::other			allocator_type;
 			typedef Compare												value_compare;
 			typedef red_black_tree<T, Alloc, Compare>					tree_type;
-			typedef T&													reference;
-			typedef const T&											const_reference;
-			typedef T*													pointer;
-			typedef const T*											const_pointer;
+			typedef value_type&											reference;
+			typedef const value_type&									const_reference;
+			typedef value_type*											pointer;
+			typedef const value_type*									const_pointer;
 
 		private:
 			node_type*		_root;
