@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:28:16 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/25 19:08:30 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:23:14 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@
 
 namespace ft
 {
-	template<class T, class Compare>
+	template<class T, class Compare = std::less<T> >
 	class red_black_node
 	{
 		public:
-			typedef T												value_type;
-			typedef ft::red_black_node<value_type, Compare>			node_type;
-			typedef ft::red_black_node<const value_type, Compare>	node_const_type;
-			typedef std::allocator<value_type>						alloc_type;
-			typedef Compare											value_compare;
-			typedef node_type*										pointer;
-			typedef const node_type*								const_pointer;
-			typedef size_t											size_type;
+			typedef T											value_type;
+			typedef red_black_node<value_type, Compare>			node_type;
+			typedef red_black_node<const value_type, Compare>	node_const_type;
+			typedef std::allocator<value_type>					alloc_type;
+			typedef Compare										value_compare;
+			typedef node_type*									pointer;
+			typedef const node_type*							const_pointer;
+			typedef size_t										size_type;
 
 		private :
 			value_type				_content;
@@ -46,7 +46,7 @@ namespace ft
 		public:
 			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
 
-			explicit red_black_node(const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(), _color(RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
+			red_black_node(const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(), _color(RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
 				{return;}
 
 			red_black_node(const value_type& val, const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(val), _color(RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
@@ -96,9 +96,9 @@ namespace ft
 				if (!grand_parent)
 					return (NULL);
 				else if (grand_parent->_left == parent)
-					return (grand_parent->_right)
+					return (grand_parent->_right);
 				else
-					return (grand_parent->_left)
+					return (grand_parent->_left);
 			}
 
 			bool				is_red() const
@@ -133,7 +133,7 @@ namespace ft
 
 			void				set_end(pointer ptr)
 			{
-				_end = ptr
+				_end = ptr;
 				return;
 			}
 
@@ -206,7 +206,7 @@ namespace ft
 				{return (red_black_node<const T>(*this));}
 
 			bool				operator==(const node_type& rhs) const
-				{return (!_comp(_content, rhs->_content) && _comp(rhs->_content, _content));}
+				{return (!_comp(_content, rhs._content) && _comp(rhs._content, _content));}
 
 			bool				operator!=(const node_type& rhs) const
 				{return (!(this == rhs));}

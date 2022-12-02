@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/24 16:18:56 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:50:59 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ namespace ft
 	template<typename T, class Alloc = std::allocator<T> >
 	class vector
 	{
-		public:																	// Need to declare some public types here to use them privately just after
-			typedef				T											value_type;
-			typedef				Alloc										allocator_type;
-			typedef				value_type&									reference;
-			typedef				const value_type&							const_reference;
-			typedef				value_type*									pointer;
-			typedef				const value_type*							const_pointer;
-			typedef typename	random_access_iterator<value_type>			iterator;
-			typedef typename	random_access_iterator<const value_type>	const_iterator;
-			typedef typename	reverse_iterator<iterator>					reverse_iterator;
-			typedef typename	reverse_iterator<const_iterator>			const_reverse_iterator;
-			typedef typename	iterator_traits<iterator>::difference_type	difference_type;
-			typedef				size_t										size_type;
+		public:																// Need to declare some public types here to use them privately just after
+			typedef				T												value_type;
+			typedef				Alloc											allocator_type;
+			typedef				value_type&										reference;
+			typedef				const value_type&								const_reference;
+			typedef				value_type*										pointer;
+			typedef				const value_type*								const_pointer;
+			typedef typename	ft::random_access_iterator<value_type>			iterator;
+			typedef typename	ft::random_access_iterator<const value_type>	const_iterator;
+			typedef typename	ft::reverse_iterator<iterator>					reverse_iterator;
+			typedef typename	ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef typename	iterator_traits<iterator>::difference_type		difference_type;
+			typedef				size_t											size_type;
 
 		private:
 			pointer 			_container;
@@ -108,7 +108,7 @@ namespace ft
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				_size = ft::distance(first, last);
+				_size = distance(first, last);
 				_capacity = _size;
 				_container = _alloc.allocate(_size);
 				for (size_type i = 0; first != last; i++)
@@ -128,8 +128,8 @@ namespace ft
 			vector(const vector& x)
 			{
 				_alloc = x._alloc;
-				iterator	first = x.begin();
-				iterator	last = x.end();
+				const_iterator	first = x.begin();
+				const_iterator	last = x.end();
 
 				_size = x._size;
 				_capacity = _size;
@@ -479,7 +479,7 @@ namespace ft
 			template<class InputIterator>
 			void					assign(InputIterator first, InputIterator last)
 			{
-				size_type	size = ft::distance(first, last);
+				size_type	size = distance(first, last);
 
 				clear();
 				if (size > _capacity)
@@ -579,7 +579,7 @@ namespace ft
 				size_type	dist = 0;
 
 				if (_size)
-					dist = ft::distance(begin(), position);
+					dist = distance(begin(), position);
 				insert(position, 1, val);
 				return (begin() + dist);
 			}
@@ -606,7 +606,7 @@ namespace ft
 			void					insert(iterator position, size_type n, const value_type& val)
 			{
 
-				size_type	pos = ft::distance(begin(), position);
+				size_type	pos = distance(begin(), position);
 
 				if (_size + n > _capacity)
 				{
@@ -638,9 +638,9 @@ namespace ft
 				}
 				else
 				{
-					for (ssize_t i = _size - 1; i >= static_cast<ssize_t>(pos); i--)
-						_container[i+n] = _container[i];
-					for (size_t i = pos; i < pos+n; i++)
+					for (size_t i = _size - 1; i >= static_cast<size_t>(pos); i--)
+						_container[i + n] = _container[i];
+					for (size_t i = pos; i < pos + n; i++)
 						_alloc.construct(_container + i, val);
 				}
 				_size += n;
@@ -667,8 +667,8 @@ namespace ft
 			template<class InputIterator>
 			void					insert(iterator position, InputIterator first, InputIterator last)
 			{
-				size_type	pos = ft::distance(begin(), position);
-				size_type	dist = ft::distance(first, last);
+				size_type	pos = distance(begin(), position);
+				size_type	dist = distance(first, last);
 
 				if (_size + dist > _capacity)
 				{
@@ -700,7 +700,7 @@ namespace ft
 				}
 				else
 				{
-					for (ssize_t i = _size - 1; i >= static_cast<ssize_t>(pos); i--)
+					for (size_t i = _size - 1; i >= static_cast<size_t>(pos); i--)
 						_container[i + dist] = _container[i];
 					for (size_t i = pos; i < pos + dist; i++)
 						_alloc.construct(_container + i, *first++);
@@ -746,8 +746,8 @@ namespace ft
 
 				for (; itp != end(); it++, itp++)
 					*it = *itp;
-				_size -= ft::distance(first, last);
-				return (iterator(_container + ft::distance(begin(), first)));
+				_size -= distance(first, last);
+				return (iterator(_container + distance(begin(), first)));
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -813,7 +813,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<class T, class Alloc>
 	bool							operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
-		{return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));}
+		{return (lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));}
 
 	/* --------------------------------------------------------------------------------
 	- "Not equal to" operator for vector -
@@ -835,7 +835,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<class T, class Alloc>
 	bool							operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs)
-		{return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
+		{return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
 
 	/* --------------------------------------------------------------------------------
 	- "Less than or equal to" operator for vector -

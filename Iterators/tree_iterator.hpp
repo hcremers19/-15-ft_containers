@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:37:55 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/25 19:08:30 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:00:52 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ namespace ft
 
 			/* ----- OPERATOR OVERLOADS ----- */
 
-			operator	tree_iterator<const T, Compare, red_black_node<const T, Compare>>() const
+			operator	tree_iterator<const T, Compare, red_black_node<const T, Compare> >() const
 			{
 				const iterator&	it = *this;
 				return (reinterpret_cast<const tree_iterator<const T, Compare, red_black_node<const T, Compare> >&>(it));
@@ -74,7 +74,7 @@ namespace ft
 				{return (_content->get_value());}
 
 			pointer		operator->() const
-				{return (_content->get_value());}
+				{return (&_content->get_value());}
 
 			iterator&	operator++()
 			{

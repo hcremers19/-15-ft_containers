@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:38:52 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/24 10:44:03 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:45:24 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 namespace ft
 {
 	template<typename T>
-	class random_access_iterator : ft::iterator<ft::random_access_iterator_tag, T>
+	class random_access_iterator : iterator<random_access_iterator_tag, T>
 	{
 		public:
-			typedef typename	ft::iterator<random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename	ft::iterator<random_access_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename	ft::iterator<random_access_iterator_tag, T>::pointer			pointer;
-			typedef typename	ft::iterator<random_access_iterator_tag, T>::reference			reference;
-			typedef typename	ft::iterator<random_access_iterator_tag, T>::value_type			value_type;
+			typedef typename	iterator<random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename	iterator<random_access_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename	iterator<random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename	iterator<random_access_iterator_tag, T>::reference			reference;
+			typedef typename	iterator<random_access_iterator_tag, T>::value_type			value_type;
 
 		private:
 			pointer				_content;
@@ -108,7 +108,7 @@ namespace ft
 			}
 
 			reference				operator[](difference_type val) const
-				{return (*(_content + val))};
+				{return (*(_content + val));}
 
 
 			/* ----- MEMBER FUNCTION ----- */

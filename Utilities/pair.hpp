@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:14:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/25 19:08:30 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:15:01 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace ft
 			second_type	second;
 
 
-			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
+			/* ----- CONSTRUCTORS ----- */
 
 			/* --------------------------------------------------------------------------------
 			- Default constructor -
@@ -34,7 +34,7 @@ namespace ft
 
 			Source: https://legacy.cplusplus.com/reference/utility/pair/pair/
 			-------------------------------------------------------------------------------- */
-			pair() : first(NULL), second(NULL)
+			pair() : first(), second()
 				{return;}
 
 			/* --------------------------------------------------------------------------------
@@ -55,12 +55,6 @@ namespace ft
 			Source: https://legacy.cplusplus.com/reference/utility/pair/pair/
 			-------------------------------------------------------------------------------- */
 			pair(const first_type& a, const second_type& b) : first(a), second(b)
-				{return;}
-
-			/* --------------------------------------------------------------------------------
-			- Destructor -
-			-------------------------------------------------------------------------------- */
-			~pair()
 				{return;}
 
 
@@ -87,6 +81,8 @@ namespace ft
 	- "Equal to" operator for pair -
 		Performs the appropriate comparison operation between the pair objects lhs and rhs.
 		Two pair objects compare equal to each other if both their first members compare equal to each other and both their second members compare also equal to each other (in both cases using operator== for the comparison).
+
+	Source: https://legacy.cplusplus.com/reference/utility/pair/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T1, class T2>
 	bool	operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
@@ -96,6 +92,8 @@ namespace ft
 	- "Not equal to" operator for pair -
 		Performs the appropriate comparison operation between the pair objects lhs and rhs.
 		Uses the operator == internally to compare the elements
+
+	Source: https://legacy.cplusplus.com/reference/utility/pair/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T1, class T2>
 	bool	operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
@@ -105,6 +103,8 @@ namespace ft
 	- "Less than" operator for pair -
 		Performs the appropriate comparison operation between the pair objects lhs and rhs.
 		Performs a lexicographical comparison on the sequence formed by members first and second.
+
+	Source: https://legacy.cplusplus.com/reference/utility/pair/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T1, class T2>
 	bool	operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
@@ -114,6 +114,8 @@ namespace ft
 	- "Less than or equal to" operator for pair -
 		Performs the appropriate comparison operation between the pair objects lhs and rhs.
 		Uses the operator < internally to compare the elements
+
+	Source: https://legacy.cplusplus.com/reference/utility/pair/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T1, class T2>
 	bool	operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
@@ -123,6 +125,8 @@ namespace ft
 	- "Greater than" operator for pair -
 		Performs the appropriate comparison operation between the pair objects lhs and rhs.
 		Uses the operator < internally to compare the elements
+
+	Source: https://legacy.cplusplus.com/reference/utility/pair/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T1, class T2>
 	bool	operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
@@ -132,10 +136,27 @@ namespace ft
 	- "Greater than or equal to" operator for pair -
 		Performs the appropriate comparison operation between the pair objects lhs and rhs.
 		Uses the operator < internally to compare the elements
+
+	Source: https://legacy.cplusplus.com/reference/utility/pair/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T1, class T2>
 	bool	operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs)
 		{return (!(lhs < rhs));}
+
+	
+	/* ----- NON-MEMBER FUNCTION ----- */
+
+	/* --------------------------------------------------------------------------------
+	- Construct pair object -
+		Constructs a pair object with its first element set to x and its second element set to y.
+		The template types can be implicitly deduced from the arguments passed to make_pair.
+		pair objects can be constructed from other pair objects containing different types, if the respective types are implicitly convertible.
+
+	Source: https://legacy.cplusplus.com/reference/utility/make_pair/
+	-------------------------------------------------------------------------------- */
+	template<class T1, class T2>
+	pair<T1, T2>	make_pair(T1 x, T2 y)
+		{return (pair<T1, T2>(x, y));}
 }
 
 #endif

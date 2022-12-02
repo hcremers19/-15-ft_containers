@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/25 19:08:30 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:04:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 # include <memory>
 # include <functional>
+# include "../Iterators/reverse_iterator.hpp"
+# include "../Iterators/iterator_traits.hpp"
+# include "../Iterators/tree_iterator.hpp"
 # include "../Utilities/pair.hpp"
 # include "../Utilities/red_black_tree.hpp"
-# include "../Iterators/reverse_iterator.hpp"
 
 namespace ft
 {
-	template<class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
+	template<class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key, T> > >
 	class map
 	{
 		public:
@@ -41,17 +43,17 @@ namespace ft
 					bool operator()(const value_type& x, const value_type& y) const
 						{return (comp(x.first, y.first));}
 			};
-			typedef Alloc												allocator_type;
-			typedef value_type&											reference;
-			typedef const value_type&									const_reference;
-			typedef value_type*											pointer;
-			typedef const value_type*									const_pointer;
-			typedef typename bidirectional_iterator<value_type>			iterator;
-			typedef typename bidirectional_iterator<const value_type>	const_iterator;
-			typedef typename reverse_iterator<iterator>					reverse_iterator;
-			typedef typename reverse_iterator<const_iterator>			const_reverse_iterator;
-			typedef typename iterator_traits<iterator>::difference_type	difference_type;
-			typedef size_t												size_type;
+			typedef 			Alloc																									allocator_type;
+			typedef 			value_type&																								reference;
+			typedef 			const value_type&																						const_reference;
+			typedef 			value_type*																								pointer;
+			typedef 			const value_type*																						const_pointer;
+			typedef typename	ft::tree_iterator<value_type, value_compare, red_black_node<value_type, value_compare> >				iterator;
+			typedef typename	ft::tree_iterator<const value_type, value_compare, red_black_node<const value_type, value_compare> >	const_iterator;
+			typedef typename	ft::reverse_iterator<iterator>																			reverse_iterator;
+			typedef typename	ft::reverse_iterator<const_iterator>																	const_reverse_iterator;
+			typedef typename	iterator_traits<iterator>::difference_type																difference_type;
+			typedef 			size_t																									size_type;
 
 		private:
 			red_black_tree<value_type, Alloc, value_compare>			_tree;
@@ -69,7 +71,10 @@ namespace ft
 			Source: https://legacy.cplusplus.com/reference/map/map/map/
 			-------------------------------------------------------------------------------- */
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(_val_comp), _size(0), _key_comp(comp), _val_comp(_key_comp)
-				{return;}
+			{
+				(void)alloc;
+				return;
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Range constructor -
@@ -81,6 +86,7 @@ namespace ft
 			template<class InputIterator>
 			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(_val_comp), _size(0), _key_comp(comp), _val_comp(_key_comp)
 			{
+				(void)alloc;
 				insert(first, last);
 				return;
 			}
@@ -422,7 +428,7 @@ namespace ft
 
 					++first;
 					if (_tree.erase(*tmp))
-						_size--:
+						_size--;
 				}
 				return;
 			}
@@ -496,7 +502,12 @@ namespace ft
 
 			Source: https://cplusplus.com/reference/map/map/find/
 			-------------------------------------------------------------------------------- */
-			iterator								find(const key_type& k);
+			iterator								find(const key_type& k)
+			{
+				value_type	val(k, mapped_type());
+
+				return (iterator(_tree.search()));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Get iterator to element -
@@ -506,7 +517,12 @@ namespace ft
 
 			Source: https://cplusplus.com/reference/map/map/find/
 			-------------------------------------------------------------------------------- */
-			const_iterator							find(const key_type& k) const;
+			const_iterator							find(const key_type& k) const
+			{
+				value_type	val(k, mapped_type());
+
+				return (static_cast<const_iterator>(_tree.search()));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Count elements with a specific key -
@@ -516,73 +532,110 @@ namespace ft
 
 			Source: https://cplusplus.com/reference/map/map/count/
 			-------------------------------------------------------------------------------- */
-			size_type								count(const key_type& k) const;
+			size_type								count(const key_type& k) const
+			{
+				value_type	val(k, mapped_type());
+
+				if (_tree.search(val) == _tree.get_end())
+					return (0);
+				return (1);
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Return iterator to lower bound -
 				Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
-				The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(element_key,k) would return false.
+				The function uses its internal comparison object (_key_comp) to determine this, returning an iterator to the first element for which key_comp(elementkey,k) would return false.
 				If the map class is instantiated with the default comparison type (less), the function returns an iterator to the first element whose key is not less than k.
 				A similar member function, upper_bound, has the same behavior as lower_bound, except in the case that the map contains an element with a key equivalent to k: In this case, lower_bound returns an iterator pointing to that element, whereas upper_bound returns an iterator pointing to the next element.
 
 			Source: https://cplusplus.com/reference/map/map/lower_bound/
 			-------------------------------------------------------------------------------- */
-			iterator								lower_bound(const key_type& k);
+			iterator								lower_bound(const key_type& k)
+			{
+				value_type	val(k, mapped_type());
+
+				return (iterator(_tree.search_lower_bound(val)));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Return iterator to lower bound -
 				Returns an iterator pointing to the first element in the container whose key is not considered to go before k (i.e., either it is equivalent or goes after).
-				The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(element_key,k) would return false.
+				The function uses its internal comparison object (_key_comp) to determine this, returning an iterator to the first element for which key_comp(elementkey, k) would return false.
 				If the map class is instantiated with the default comparison type (less), the function returns an iterator to the first element whose key is not less than k.
 				A similar member function, upper_bound, has the same behavior as lower_bound, except in the case that the map contains an element with a key equivalent to k: In this case, lower_bound returns an iterator pointing to that element, whereas upper_bound returns an iterator pointing to the next element.
 
 			Source: https://cplusplus.com/reference/map/map/lower_bound/
 			-------------------------------------------------------------------------------- */
-			const_iterator							lower_bound(const key_type& k) const;
+			const_iterator							lower_bound(const key_type& k) const
+			{
+				value_type	val(k, mapped_type());
+
+				return (static_cast<const_iterator>(_tree.search_lower_bound(val)));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Return iterator to upper bound -
 				Returns an iterator pointing to the first element in the container whose key is considered to go after k.
-				The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(k,element_key) would return true.
+				The function uses its internal comparison object (_key_comp) to determine this, returning an iterator to the first element for which key_comp(k, elementkey) would return true.
 				If the map class is instantiated with the default comparison type (less), the function returns an iterator to the first element whose key is greater than k.
 				A similar member function, lower_bound, has the same behavior as upper_bound, except in the case that the map contains an element with a key equivalent to k: In this case lower_bound returns an iterator pointing to that element, whereas upper_bound returns an iterator pointing to the next element.
 
 			Source: https://cplusplus.com/reference/map/map/upper_bound/
 			-------------------------------------------------------------------------------- */
-			iterator								upper_bound(const key_type& k);
+			iterator								upper_bound(const key_type& k)
+			{
+				value_type	val(k, mapped_type());
+
+				return (iterator(_tree.search_upper_bound(val)));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Return iterator to upper bound -
 				Returns an iterator pointing to the first element in the container whose key is considered to go after k.
-				The function uses its internal comparison object (key_comp) to determine this, returning an iterator to the first element for which key_comp(k,element_key) would return true.
+				The function uses its internal comparison object (_key_comp) to determine this, returning an iterator to the first element for which key_comp(k,elementkey) would return true.
 				If the map class is instantiated with the default comparison type (less), the function returns an iterator to the first element whose key is greater than k.
 				A similar member function, lower_bound, has the same behavior as upper_bound, except in the case that the map contains an element with a key equivalent to k: In this case lower_bound returns an iterator pointing to that element, whereas upper_bound returns an iterator pointing to the next element.
 
 			Source: https://cplusplus.com/reference/map/map/upper_bound/
 			-------------------------------------------------------------------------------- */
-			const_iterator							upper_bound(const key_type& k) const;
+			const_iterator							upper_bound(const key_type& k) const
+			{
+				value_type	val(k, mapped_type());
+
+				return (static_cast<const_iterator>(_tree.search_upper_bound(val)));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Get range of equal elements -
 				Returns the bounds of a range that includes all the elements in the container which have a key equivalent to k.
 				Because the elements in a map container have unique keys, the range returned will contain a single element at most.
-				If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
+				If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (_key_comp).
 				Two keys are considered equivalent if the container's comparison object returns false reflexively (i.e., no matter the order in which the keys are passed as arguments).
 
 			Source: https://cplusplus.com/reference/map/map/equal_range/
 			-------------------------------------------------------------------------------- */
-			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
+			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
+			{
+				value_type	val(k, mapped_type());
+
+				return (pair<const_iterator, const_iterator>(_tree.search_lower_bound(val), _tree.search_upper_bound(val)));
+			}
 
 			/* --------------------------------------------------------------------------------
 			- Get range of equal elements -
 				Returns the bounds of a range that includes all the elements in the container which have a key equivalent to k.
 				Because the elements in a map container have unique keys, the range returned will contain a single element at most.
-				If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (key_comp).
+				If no matches are found, the range returned has a length of zero, with both iterators pointing to the first element that has a key considered to go after k according to the container's internal comparison object (_key_comp).
 				Two keys are considered equivalent if the container's comparison object returns false reflexively (i.e., no matter the order in which the keys are passed as arguments).
 
 			Source: https://cplusplus.com/reference/map/map/equal_range/
 			-------------------------------------------------------------------------------- */
-			pair<iterator, iterator>				equal_range(const key_type& k);
+			pair<iterator, iterator>				equal_range(const key_type& k)
+			{
+				value_type	val(k, mapped_type());
+
+				return (pair<iterator, iterator>(_tree.search_lower_bound(val), _tree.search_upper_bound(val)));
+			}
 
 
 			/* --- Allocator --- */
@@ -593,9 +646,35 @@ namespace ft
 
 			Source: https://cplusplus.com/reference/map/map/get_allocator/
 			-------------------------------------------------------------------------------- */
-			allocator_type							get_allocator() const;
+			allocator_type							get_allocator() const
+				{return (allocator_type());}
 
 	};
+	/* ----- NON-MEMBER OPERATOR OVERLOADS (C++20) ----- */
+
+	// template <typename Key, typename T, typename Compare, typename Alloc>
+	// bool	operator==(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+	// 	{return (equal(lhs.begin(), lhs.end(), rhs.begin()) && lhs.size() == rhs.size());}
+
+	// template <typename Key, typename T, typename Compare, typename Alloc>
+	// bool	operator<(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+	// 	{return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
+
+	// template <typename Key, typename T, typename Compare, typename Alloc>
+	// bool	operator!=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+	// 	{return (!(lhs == rhs));}
+
+	// template <typename Key, typename T, typename Compare, typename Alloc>
+	// bool	operator>(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+	// 	{return (rhs < lhs);}
+
+	// template <typename Key, typename T, typename Compare, typename Alloc>
+	// bool	operator<=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+	// 	{return (!(rhs < lhs));}
+
+	// template <typename Key, typename T, typename Compare, typename Alloc>
+	// bool	operator>=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+	// 	{return (!(lhs < rhs));}
 }
 
 #endif

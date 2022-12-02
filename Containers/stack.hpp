@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/24 10:43:54 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:02:04 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
 			typedef Container	container_type;
 			typedef size_t		size_type;
 
-		private:
+		protected:
 			container_type		c;
 
 		public:

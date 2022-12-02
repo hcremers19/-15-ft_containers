@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:51:15 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/17 19:10:36 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:24:52 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ namespace ft
 	template<typename InputIterator>
 	typename iterator_traits<InputIterator>::difference_type 		distance(InputIterator first, InputIterator last)
 	{
-		return (__distance(first, last, typename ft::iterator_traits<InputIterator>::iterator_category()));
+		return (__distance(first, last, typename iterator_traits<InputIterator>::iterator_category()));
 	}
 
 	/* ------------------------------------------------------------------------

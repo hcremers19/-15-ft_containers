@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/28 11:33:03 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:11:54 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ namespace ft
 	class red_black_tree
 	{
 		public:
-			typedef T													value_type;
-			typedef red_black_node<value_type, Compare>					node_type;
-			typedef red_black_node<const value_type, Compare>			node_const_type;
-			typedef Alloc::template rebind<node_type>::other			allocator_type;
-			typedef Compare												value_compare;
-			typedef red_black_tree<T, Alloc, Compare>					tree_type;
-			typedef value_type&											reference;
-			typedef const value_type&									const_reference;
-			typedef value_type*											pointer;
-			typedef const value_type*									const_pointer;
+			typedef 			T											value_type;
+			typedef 			red_black_node<value_type, Compare>			node_type;
+			typedef 			red_black_node<const value_type, Compare>	node_const_type;
+			typedef typename	Alloc::template rebind<node_type>::other	allocator_type;
+			typedef 			Compare										value_compare;
+			typedef 			red_black_tree<T, Alloc, Compare>			tree_type;
+			typedef 			value_type&									reference;
+			typedef 			const value_type&							const_reference;
+			typedef 			value_type*									pointer;
+			typedef 			const value_type*							const_pointer;
 
 		private:
 			node_type*		_root;
@@ -43,7 +43,7 @@ namespace ft
 		public:
 			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
 
-			explicit red_black_tree(value_compare& comp = value_compare()) : _root(NULL), _node_alloc(), _comp(comp)
+			red_black_tree(value_compare& comp = value_compare()) : _root(NULL), _node_alloc(), _comp(comp)
 			{
 				_end = _node_alloc.allocate(1);
 				_node_alloc.construct((_end), node_type(_root, _comp));
@@ -85,13 +85,13 @@ namespace ft
 				{return (_root);}
 
 			node_const_type*		get_root() const
-				{return (reinterpret_cast<node_const_type*>_root);}
+				{return (reinterpret_cast<node_const_type*>(_root));}
 
 			node_type*				get_end()
 				{return (_end);}
 
 			node_const_type*		get_end() const
-				{return (reinterpret_cast<node_const_type*>_end);}
+				{return (reinterpret_cast<node_const_type*>(_end));}
 
 			value_compare const&	get_comp() const
 				{return (_comp);}
@@ -108,7 +108,7 @@ namespace ft
 
 			void					set_end(node_type* end)
 			{
-				_end = ptr;
+				_end = end;
 				_end->set_end(_root);
 				return;
 			}
@@ -196,7 +196,7 @@ namespace ft
 				if (!right)
 				{
 					check = _create_child(k, true);
-					_replace_node(k->get_parent, k, check.first);
+					_replace_node(k->get_parent(), k, check.first);
 				}
 				else if (!left)
 				{

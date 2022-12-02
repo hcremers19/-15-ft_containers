@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:17:43 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/24 10:44:03 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:21:20 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ namespace ft
 			iterator_type		_base_iterator;
 
 		public:
-			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
+			/* ----- CONSTRUCTORS ----- */
 
 			/* --------------------------------------------------------------------------------
 			- Default constructor -
@@ -71,12 +71,6 @@ namespace ft
 			-------------------------------------------------------------------------------- */
 			template<class Iter>
 			reverse_iterator(const reverse_iterator<Iter>& rev_it) : _base_iterator(rev_it.base())
-				{return;}
-
-			/* --------------------------------------------------------------------------------
-			- Destructor -
-			-------------------------------------------------------------------------------- */
-			~reverse_iterator()
 				{return;}
 
 
