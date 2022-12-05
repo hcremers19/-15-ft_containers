@@ -6,14 +6,14 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/21 16:01:36 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:53:02 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 // CREATE A REAL STL EXAMPLE
+#if 0 // CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>

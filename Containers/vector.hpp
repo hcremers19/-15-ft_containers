@@ -6,15 +6,17 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/02 11:50:59 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:55:21 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-# include <iostream>
-# include <memory>
+# include <cstddef>		// size_t
+# include <stdexcept>	// out_of_range
+# include <memory>		// allocator
+# include <iterator>	// distance
 # include "../Iterators/random_access_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
 # include "../Utilities/util.hpp"
@@ -24,7 +26,7 @@ namespace ft
 	template<typename T, class Alloc = std::allocator<T> >
 	class vector
 	{
-		public:																// Need to declare some public types here to use them privately just after
+		public:																	// Need to declare some public types here to use them privately just after
 			typedef				T												value_type;
 			typedef				Alloc											allocator_type;
 			typedef				value_type&										reference;
@@ -108,7 +110,7 @@ namespace ft
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				_size = distance(first, last);
+				_size = std::distance(first, last);
 				_capacity = _size;
 				_container = _alloc.allocate(_size);
 				for (size_type i = 0; first != last; i++)
@@ -479,7 +481,7 @@ namespace ft
 			template<class InputIterator>
 			void					assign(InputIterator first, InputIterator last)
 			{
-				size_type	size = distance(first, last);
+				size_type	size = std::distance(first, last);
 
 				clear();
 				if (size > _capacity)
@@ -579,7 +581,7 @@ namespace ft
 				size_type	dist = 0;
 
 				if (_size)
-					dist = distance(begin(), position);
+					dist = std::distance(begin(), position);
 				insert(position, 1, val);
 				return (begin() + dist);
 			}
@@ -606,7 +608,7 @@ namespace ft
 			void					insert(iterator position, size_type n, const value_type& val)
 			{
 
-				size_type	pos = distance(begin(), position);
+				size_type	pos = std::distance(begin(), position);
 
 				if (_size + n > _capacity)
 				{
@@ -667,8 +669,8 @@ namespace ft
 			template<class InputIterator>
 			void					insert(iterator position, InputIterator first, InputIterator last)
 			{
-				size_type	pos = distance(begin(), position);
-				size_type	dist = distance(first, last);
+				size_type	pos = std::distance(begin(), position);
+				size_type	dist = std::distance(first, last);
 
 				if (_size + dist > _capacity)
 				{
@@ -746,8 +748,8 @@ namespace ft
 
 				for (; itp != end(); it++, itp++)
 					*it = *itp;
-				_size -= distance(first, last);
-				return (iterator(_container + distance(begin(), first)));
+				_size -= std::distance(first, last);
+				return (iterator(_container + std::distance(begin(), first)));
 			}
 
 			/* --------------------------------------------------------------------------------

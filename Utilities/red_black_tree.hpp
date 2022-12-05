@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/02 14:11:54 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:51:31 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ namespace ft
 			{
 				node_type	tmp(val, _end, _comp);
 
-				if (*hint < tmp && *(hint.iterate()) > tmp)
+				if (*hint < tmp && *(hint->iterate()) > tmp)
 					return (insert(tmp, hint));
 				else
 					return (insert(tmp, _root));
@@ -375,10 +375,10 @@ namespace ft
 			{
 				while (_is_red(k->get_parent()) && k->get_parent()->get_parent())
 				{
-					node_type	*parent = k->get_parent();
-					node_type	*gparent = parent->get_parent();
+					node_type*	parent = k->get_parent();
+					node_type*	gparent = parent->get_parent();
 					bool		is_left = (gparent->get_left() == parent);
-					node_type	*uncle = (is_left ? gparent->get_right() : gparent->get_left());
+					node_type*	uncle = (is_left ? gparent->get_right() : gparent->get_left());
 
 					if (_is_red(uncle))
 					{
