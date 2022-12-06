@@ -5,498 +5,570 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/05 15:14:12 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/05 15:36:31 by hcremers         ###   ########.fr       */
+/*   Created: 2022/12/06 13:31:02 by hcremers          #+#    #+#             */
+/*   Updated: 2022/12/06 15:55:05 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_TREE_HPP
 # define RED_BLACK_TREE_HPP
 
-# include <iostream>
 # include "red_black_node.hpp"
 
 namespace ft
 {
+	template <class key, class T, class Compare = std::less<key>, class Alloc = std::allocator<ft::pair<key, T> > >
 	class red_black_tree
 	{
 		public:
-			typedef red_black_node*	node_ptr;
+			typedef 			red_black_node<key, T>											node;
+			typedef 			key																key_type;
+			typedef 			T																mapped_type;
+			typedef 			pair<key_type, mapped_type>										value_type;
+			typedef 			Compare															key_compare;
+			typedef typename	Alloc::template rebind<node>::other								allocator_type;
+			typedef typename	allocator_type::reference										reference;
+			typedef typename	allocator_type::const_reference									const_reference;
+			typedef typename	allocator_type::pointer											pointer;
+			typedef typename	allocator_type::const_pointer									const_pointer;
+			typedef typename	ft::tree_iterator<red_black_node<key_type, mapped_type> >		iterator;
+			typedef typename	ft::const_tree_iterator<red_black_node<key_type, mapped_type> >	const_iterator;
+			typedef typename	ft::reverse_iterator<iterator>									reverse_iterator;
+			typedef typename	ft::reverse_iterator<const_iterator>							const_reverse_iterator;
+			typedef				ptrdiff_t														difference_type;
+			typedef				size_t															size_type;
 
-		private:
-			node_ptr	_root;
-			node_ptr	_null;
+		protected:
+			node*			_end;
+			allocator_type	_alloc;
+			key_compare		_key_cmp;
+			size_t			_size;
+			node*			_root;
 
 		public:
-			red_black_tree()
+			/* Default constructor */
+			red_black_tree(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _alloc(alloc), _key_cmp(comp), _size(0), _root(NULL)
 			{
-				_null = new red_black_node;
-				_null->color = 0;
-				_null->left = nullptr;
-				_null->right = nullptr;
-				_root = _null;
-			}
-
-			void		preorder()
-			{
-				_pre_order(_root);
+				_this_is_end();
 				return;
 			}
 
-			void		inorder()
+			/* Copy constructor */
+			red_black_tree(red_black_tree const& cpy) : _alloc(cpy._alloc), _key_cmp(cpy._key_cmp), _size(0), _root(NULL)
 			{
-				_in_order(_root);
-				return;
-			}
+				iterator	it(cpy.min_val());
 
-			void		postorder()
-			{
-				_post_order(_root);
-				return;
-			}
-
-			node_ptr	search_tree(int k)
-				{return (_search_tree(_root, k));}
-
-			node_ptr	minimum(node_ptr node)
-			{
-				while (node->left != _null)
-					node = node->left;
-
-				return (node);
-			}
-
-			node_ptr	maximum(node_ptr node)
-			{
-				while (node->right != _null)
-					node = node->right;
-				return (node);
-			}
-
-			node_ptr	successor(node_ptr x)
-			{
-				if (x->right != _null)
-					return (minimum(x->right));
-
-				node_ptr y = x->parent;
-				while (y != _null && x == y->right)
+				_this_is_end();
+				while (!it._node->is_leaf())
 				{
-					x = y;
-					y = y->parent;
+					insert(it._node->value);
+					it++;
 				}
-				return (y);
 			}
 
-			node_ptr	predecessor(node_ptr x)
+			/* Destructor */
+			~red_black_tree()
 			{
-				if (x->left != _null)
-					return (maximum(x->left));
+				node*	tmp = _root;
 
-				node_ptr y = x->parent;
-				while (y != _null && x == y->left)
+				while (_size != 0)
 				{
-					x = y;
-					y = y->parent;
-				}
+					if (tmp->right && tmp->right != _end)
+						tmp = tmp->right;
+					else if (tmp->left && tmp->left != _end)
+						tmp = tmp->left;
+					else
+					{
+						node	*bis = tmp;
 
-				return (y);
+						if (tmp->parent)
+						{
+							tmp = tmp->parent;
+							if (bis == tmp->left)
+								tmp->left = NULL;
+							else
+								tmp->right = NULL;
+						}
+						_alloc.destroy(bis);
+						_alloc.deallocate(bis, 1);
+						_size--;
+					}
+				}
+				_alloc.destroy(_end);
+				_alloc.deallocate(_end, 1);
 			}
 
-			void		left_rotate(node_ptr x)
+			ft::pair<iterator, bool>	insert(value_type val)
 			{
-				node_ptr y = x->right;
-				x->right = y->left;
-				if (y->left != _null)
-					y->left->parent = x;
-				y->parent = x->parent;
-				if (x->parent == nullptr)
-					_root = y;
-				else if (x == x->parent->left)
-					x->parent->left = y;
+				ft::pair<iterator, bool>	ret;
+				node*						tmp;
+				node*						tmp_tmp;
+				node*						u;
+
+				if (_size == 0)
+				{
+					_its_empty(val);
+					ret.first = _root;
+					ret.second = true;
+					return (ret);
+				}
+				ret = _where_is_the_value(val);
+				if (!ret.second)
+					return (ret);
+				tmp = ret.first._node;
+				while (tmp && tmp->parent && tmp->parent->color == RED)
+				{
+					if (tmp->parent->parent->right == tmp->parent)
+					{
+						u = tmp->parent->parent->left;
+						if (u->color == RED)
+						{
+							u->color = BLACK;
+							tmp->parent->color = BLACK;
+							tmp->parent->parent->color = RED;
+							tmp = tmp->parent->parent;
+						}
+						else
+						{
+							if (tmp == tmp->parent->left)
+							{
+								tmp_tmp = tmp->parent;
+								_rotation_right(tmp, tmp->parent, tmp->parent->parent);
+								tmp = tmp_tmp;
+							}
+							tmp->parent->color = BLACK;
+							tmp->parent->parent->color = RED;
+							_rotation_left(tmp->parent->parent, tmp->parent->parent->right, tmp->parent->parent->parent);
+						}
+					}
+					else
+					{
+						u = tmp->parent->parent->right;
+						if (u->color == RED)
+						{
+							u->color = BLACK;
+							tmp->parent->color = BLACK;
+							tmp->parent->parent->color = RED;
+							tmp = tmp->parent->parent;
+						}
+						else
+						{
+							if (tmp == tmp->parent->right)
+							{
+								tmp_tmp = tmp->parent;
+								_rotation_left(tmp->parent, tmp, tmp->parent->parent);
+								tmp = tmp_tmp;
+							}
+							tmp->parent->color = BLACK;
+							tmp->parent->parent->color = RED;
+							_rotation_right(tmp->parent, tmp->parent->parent, tmp->parent->parent->parent);
+						}
+					}
+					_root->color = BLACK;
+				}
+				return (ret);
+			}
+
+			node*						find_the_value(key_type val) const
+			{
+				if (_size == 0)
+					return (_end);
+				node*	tmp = _root;
+
+				while (tmp != _end && tmp->value.first != val)
+				{
+					if (_key_cmp(val, tmp->value.first))
+						tmp = tmp->left;
+					else
+						tmp = tmp->right;
+				}
+				return (tmp);
+			}
+
+			size_type					to_delete(key_type val)
+			{
+				node*	tmp;
+				node*	bis;
+
+				tmp = find_the_value(val);
+				if (tmp == _end)
+					return (0);
+				bis = _binary_search_tree_delete(tmp);
+				if (bis)
+					bis = _rebalanced_delete(bis);
+				return (1);
+			}
+
+			node*						min_val() const
+			{
+				node*	tmp = _root;
+
+				while (tmp->left != _end)
+					tmp = tmp->left;
+				return (tmp);
+			}
+
+			node*						max_val() const
+			{
+				node*	tmp = _root;
+
+				while (tmp->right != _end)
+					tmp = tmp->right;
+				return (tmp);
+			}
+
+			node*						lower_bound(key_type k) const
+			{
+				node*	tmp = _root;
+				node*	previous;
+
+				while (tmp != _end)
+				{
+					previous = tmp;
+					if (tmp->value.first == k)
+						return (tmp);
+					else if (tmp->value.first > k)
+						tmp = tmp->left;
+					else
+						tmp = tmp->right;
+				}
+				if (previous->value.first > k)
+					return (previous);
 				else
-					x->parent->right = y;
+				{
+					if (previous == max_val())
+						return (_end);
+					while (previous->parent->right == previous)
+						previous = previous->parent;
+				}
+				return (previous->parent);
+			}
+
+			node*						upper_bound(key_type k) const
+			{
+				node*	tmp = _root;
+				node*	previous;
+
+				while (tmp != _end)
+				{
+					previous = tmp;
+					if (tmp->value.first == k)
+						break;
+					else if (tmp->value.first > k)
+						tmp = tmp->left;
+					else
+						tmp = tmp->right;
+				}
+				if (tmp != _end)
+				{
+					if (tmp->right != _end)
+						return (_find_min_val(tmp->right));
+					if (tmp == max_val())
+						return _end;
+					while (tmp->parent && tmp == tmp->parent->right)
+						tmp = tmp->parent;
+					return (tmp->parent);
+				}
+				else
+				{
+					if (previous == max_val())
+						return (_end);
+					if (previous == min_val())
+						return (min_val());
+					while (tmp->parent && tmp == tmp->parent->right)
+						tmp = tmp->parent;
+					return (tmp->parent);
+				}
+			}
+
+			// Display function just to vizualisation
+			//  void print(void) const { printRBTRec("", _root, RED); };
+
+			size_type					get_size() const
+				{return (_size);}
+
+			node*						get_the_end() const
+				{return (_end);}
+
+			allocator_type				get_alloc() const
+				{return (_alloc);}
+
+			void						swap(red_black_tree* rhs)
+			{
+				node*	tmp_end = _end;
+				node*	tmp_root = _root;
+				size_t	tmp_size = _size;
+
+				_end = rhs->_end;
+				_root = rhs->_root;
+				_size = rhs->_size;
+
+				rhs->_end = tmp_end;
+				rhs->_root = tmp_root;
+				rhs->_size = tmp_size;
+			}
+
+		private:
+			void						_this_is_end()
+			{
+				_end = _alloc.allocate(1);
+				_alloc.construct(_end, node());
+				_end->color = BLACK;
+				_end->left = NULL;
+				_end->right = NULL;
+				_end->parent = NULL;
+				_end->end = _end;
+			}
+
+			void						_its_empty(value_type val)
+			{
+				_root = _alloc.allocate(1);
+				_alloc.construct(_root, node(val));
+				_size++;
+				_root->right = _end;
+				_root->left = _end;
+				_root->color = BLACK;
+				_root->end = _end;
+				_end->parent = _root;
+			}
+
+			pair<iterator, bool>		_where_is_the_value(value_type val)
+			{
+				node*					tmp = _root;
+				pair<iterator, bool>	ret;
+
+				while (1)
+				{
+					if (_key_cmp(val.first, tmp->value.first))
+					{
+						if (tmp->left && tmp->left != _end)
+							tmp = tmp->left;
+						else
+						{
+							node*	nw = _alloc.allocate(1);
+
+							_alloc.construct(nw, node(val));
+							tmp->left = nw;
+							nw->right = _end;
+							nw->left = _end;
+							nw->parent = tmp;
+							nw->end = _end;
+							tmp = tmp->left;
+							_size++;
+							break;
+						}
+					}
+					else
+					{
+						if (!_key_cmp(tmp->value.first, val.first))
+						{
+							ret.first = tmp;
+							ret.second = false;
+							return (ret);
+						}
+						if (tmp->right && tmp->right != _end)
+							tmp = tmp->right;
+						else
+						{
+							node*	nw = _alloc.allocate(1);
+
+							_alloc.construct(nw, node(val));
+							tmp->right = nw;
+							nw->right = _end;
+							nw->left = _end;
+							nw->parent = tmp;
+							nw->end = _end;
+							tmp = tmp->right;
+							_size++;
+							break;
+						}
+					}
+				}
+				ret.first = tmp;
+				ret.second = true;
+				return (ret);
+			}
+
+			void						_rotation_left(node* x, node* y, node* p)
+			{
+				if (!p)
+					_root = y;
+				else if (x == p->left)
+					p->left = y;
+				else
+					p->right = y;
+				y->parent = p;
+				x->right = y->left;
+				if (!x->right->is_leaf())
+					x->right->parent = x;
 				y->left = x;
 				x->parent = y;
 			}
 
-			void		right_rotate(node_ptr x)
+			void						_rotation_right(node* x, node* y, node* p)
 			{
-				node_ptr y = x->left;
-				x->left = y->right;
-				if (y->right != _null)
-					y->right->parent = x;
-				y->parent = x->parent;
-				if (x->parent == nullptr)
-					_root = y;
-				else if (x == x->parent->right)
-					x->parent->right = y;
+				if (!p)
+					_root = x;
+				else if (y == p->left)
+					p->left = x;
 				else
-					x->parent->left = y;
-				y->right = x;
-				x->parent = y;
+					p->right = x;
+				x->parent = p;
+				y->left = x->right;
+				if (!y->left->is_leaf())
+					y->left->parent = y;
+				x->right = y;
+				y->parent = x;
 			}
 
-			// Inserting a node
-			void		insert(int key)
+			void						_re_color(node* x)
 			{
-				node_ptr	node = new red_black_node;
-
-				node->parent = nullptr;
-				node->data = key;
-				node->left = _null;
-				node->right = _null;
-				node->color = 1;
-
-				node_ptr	y = nullptr;
-				node_ptr	x = _root;
-
-				while (x != _null)
-				{
-					y = x;
-					if (node->data < x->data)
-						x = x->left;
-					else
-						x = x->right;
-				}
-
-				node->parent = y;
-				if (y == nullptr)
-					_root = node;
-				else if (node->data < y->data)
-					y->left = node;
+				if (x->color == BLACK)
+					x->color = RED;
 				else
-					y->right = node;
-
-				if (node->parent == nullptr)
-				{
-					node->color = 0;
-					return;
-				}
-
-				if (node->parent->parent == nullptr)
-					return;
-
-				_insert_fix(node);
+					x->color = BLACK;
 			}
 
-			node_ptr	get_root()
-				{return (_root);}
-
-			void		delete_node(int data)
-			{
-				_delete_node(_root, data);
-				return;
-			}
-
-			// void		print_tree()
-			// {
-			// 	if (_root)
-			// 		_print_tree(_root, "", true);
-			// }
 
 		private:
-			void		_init_null_node(node_ptr node, node_ptr parent)
+			void						_replace_node(node* to_replace, node* replacer)
 			{
-				node->data = 0;
-				node->parent = parent;
-				node->left = nullptr;
-				node->right = nullptr;
-				node->color = 0;
+				if (!to_replace->parent)
+					_root = replacer;
+				else if (to_replace->parent->right == to_replace)
+					to_replace->parent->right = replacer;
+				else if (to_replace->parent->left == to_replace)
+					to_replace->parent->left = replacer;
+				replacer->parent = to_replace->parent;
 			}
 
-			// Preorder
-			void		_pre_order(node_ptr node)
+			node*						_find_min_val(node* tmp) const
 			{
-				if (node != _null)
+
+				while (tmp != _end && tmp->left != _end)
+					tmp = tmp->left;
+				return tmp;
+			}
+
+			node*						_binary_search_tree_delete(node* tmp)
+			{
+				bool					todelete_color = tmp->color;
+				node*					x;
+				node*					y;
+				node*					todelete = tmp;
+
+				if (todelete->left == _end)
 				{
-					std::cout << node->data << " ";
-					_pre_order(node->left);
-					_pre_order(node->right);
+					x = todelete->right;
+					_replace_node(todelete, todelete->right);
 				}
-			}
-
-			// Inorder
-			void		_in_order(node_ptr node)
-			{
-				if (node != _null)
+				else if (todelete->right == _end)
 				{
-					_in_order(node->left);
-					std::cout << node->data << " ";
-					_in_order(node->right);
+					x = todelete->left;
+					_replace_node(todelete, todelete->left);
 				}
-			}
-
-			// Post order
-			void		_post_order(node_ptr node)
-			{
-				if (node != _null)
+				else
 				{
-					_post_order(node->left);
-					_post_order(node->right);
-					std::cout << node->data << " ";
+					y = _find_min_val(todelete->right);
+					todelete_color = y->color;
+					x = y->right;
+					if (y->parent && y->parent == todelete)
+						x->parent = y;
+					else
+					{
+						_replace_node(y, y->right);
+						y->right = todelete->right;
+						y->right->parent = y;
+					}
+					_replace_node(todelete, y);
+					y->left = todelete->left;
+					y->left->parent = y;
+					y->color = todelete->color;
 				}
+				_alloc.destroy(todelete);
+				_alloc.deallocate(todelete, 1);
+				_size--;
+				if (todelete_color == BLACK)
+					return (x);
+				return (NULL);
 			}
 
-			node_ptr	_search_tree(node_ptr node, int key)
+			node*						_rebalanced_delete(node* tmp)
 			{
-				if (node == _null || key == node->data)
-					return (node);
+				node*	x = tmp;
+				node*	s;
 
-				if (key < node->data)
-					return (_search_tree(node->left, key));
-
-				return (_search_tree(node->right, key));
-			}
-
-			// For balancing the tree after deletion
-			void		_delete_fix(node_ptr x)
-			{
-				node_ptr	s;
-
-				while (x != _root && x->color == 0)
+				while (x != _root && x->color == BLACK)
 				{
 					if (x == x->parent->left)
 					{
 						s = x->parent->right;
-						if (s->color == 1)
+						if (s->color == RED)
 						{
-							s->color = 0;
-							x->parent->color = 1;
-							left_rotate(x->parent);
+							_re_color(s);
+							x->parent->color = RED;
+							_rotation_left(x->parent, x->parent->right, x->parent->parent);
 							s = x->parent->right;
 						}
-
-						if (s->left->color == 0 && s->right->color == 0)
+						if (s != _end && s->left->color == BLACK && s->right->color == BLACK)
 						{
-							s->color = 1;
+							s->color = RED;
 							x = x->parent;
 						}
 						else
 						{
-							if (s->right->color == 0)
+							if (s != _end && s->right->color == BLACK)
 							{
-								s->left->color = 0;
-								s->color = 1;
-								right_rotate(s);
+								s->left->color = BLACK;
+								s->color = RED;
+								_rotation_right(s->left, s, s->parent);
 								s = x->parent->right;
 							}
-
-							s->color = x->parent->color;
-							x->parent->color = 0;
-							s->right->color = 0;
-							left_rotate(x->parent);
+							if (s != _end)
+								s->color = x->parent->color;
+							x->parent->color = BLACK;
+							if (s != _end)
+								s->right->color = BLACK;
+							_rotation_left(x->parent, x->parent->right, x->parent->parent);
 							x = _root;
 						}
 					}
 					else
 					{
 						s = x->parent->left;
-						if (s->color == 1)
+						if (s->color == RED)
 						{
-							s->color = 0;
-							x->parent->color = 1;
-							right_rotate(x->parent);
+							_re_color(s);
+							x->parent->color = RED;
+							_rotation_right(x->parent->left, x->parent, x->parent->parent);
 							s = x->parent->left;
 						}
-
-						if (s->right->color == 0 && s->right->color == 0)
+						if (s != _end && s->right->color == BLACK && s->left->color == BLACK)
 						{
-							s->color = 1;
+							s->color = RED;
 							x = x->parent;
 						}
 						else
 						{
-							if (s->left->color == 0)
+							if (s->left->color == BLACK)
 							{
-								s->right->color = 0;
-								s->color = 1;
-								left_rotate(s);
+								s->right->color = BLACK;
+								s->color = RED;
+								_rotation_left(s, s->right, s->parent);
 								s = x->parent->left;
 							}
-
 							s->color = x->parent->color;
-							x->parent->color = 0;
-							s->left->color = 0;
-							right_rotate(x->parent);
+							x->parent->color = BLACK;
+							s->left->color = BLACK;
+							_rotation_right(x->parent->left, x->parent, x->parent->parent);
 							x = _root;
 						}
 					}
 				}
-				x->color = 0;
+				x->color = BLACK;
+				return (x);
 			}
-
-			void		_rbtransplant(node_ptr u, node_ptr v)
-			{
-				if (u->parent == nullptr)
-					_root = v;
-				else if (u == u->parent->left)
-					u->parent->left = v;
-				else
-					u->parent->right = v;
-				v->parent = u->parent;
-			}
-
-			void		_delete_node(node_ptr node, int key)
-			{
-				node_ptr	z = _null;
-				node_ptr	x;
-				node_ptr	y;
-
-				while (node != _null)
-				{
-					if (node->data == key)
-						z = node;
-
-					if (node->data <= key)
-						node = node->right;
-					else
-						node = node->left;
-				}
-
-				if (z == _null)
-				{
-					std::cout << "Key not found in the tree" << std::endl;
-					return;
-				}
-
-				y = z;
-				int	y_original_color = y->color;
-
-				if (z->left == _null)
-				{
-					x = z->right;
-					_rbtransplant(z, z->right);
-				}
-				else if (z->right == _null)
-				{
-					x = z->left;
-					_rbtransplant(z, z->left);
-				}
-				else
-				{
-					y = minimum(z->right);
-					y_original_color = y->color;
-					x = y->right;
-					if (y->parent == z)
-					{
-						x->parent = y;
-					}
-					else
-					{
-						_rbtransplant(y, y->right);
-						y->right = z->right;
-						y->right->parent = y;
-					}
-
-					_rbtransplant(z, y);
-					y->left = z->left;
-					y->left->parent = y;
-					y->color = z->color;
-				}
-				delete z;
-				if (y_original_color == 0)
-					_delete_fix(x);
-			}
-
-			// For balancing the tree after insertion
-			void		_insert_fix(node_ptr k)
-			{
-				node_ptr	u;
-
-				while (k->parent->color == 1)
-				{
-					if (k->parent == k->parent->parent->right)
-					{
-						u = k->parent->parent->left;
-						if (u->color == 1)
-						{
-							u->color = 0;
-							k->parent->color = 0;
-							k->parent->parent->color = 1;
-							k = k->parent->parent;
-						}
-						else
-						{
-							if (k == k->parent->left)
-							{
-								k = k->parent;
-								right_rotate(k);
-							}
-							k->parent->color = 0;
-							k->parent->parent->color = 1;
-							left_rotate(k->parent->parent);
-						}
-					}
-					else
-					{
-						u = k->parent->parent->right;
-
-						if (u->color == 1)
-						{
-							u->color = 0;
-							k->parent->color = 0;
-							k->parent->parent->color = 1;
-							k = k->parent->parent;
-						}
-						else
-						{
-							if (k == k->parent->right)
-							{
-								k = k->parent;
-								left_rotate(k);
-							}
-							k->parent->color = 0;
-							k->parent->parent->color = 1;
-							right_rotate(k->parent->parent);
-						}
-					}
-					if (k == _root)
-						break;
-				}
-				_root->color = 0;
-			}
-
-			// void		_print_tree(node_ptr root, std::string indent, bool last)
-			// {
-			// 	if (root != _null)
-			// 	{
-			// 		std::cout << indent;
-			// 		if (last)
-			// 		{
-			// 			std::cout << "R----";
-			// 			indent += "   ";
-			// 		}
-			// 		else
-			// 		{
-			// 			std::cout << "L----";
-			// 			indent += "|  ";
-			// 		}
-
-			// 		std::string sColor = root->color ? "RED" : "BLACK";
-			// 		std::cout << root->data << "(" << sColor << ")" << std::endl;
-			// 		_print_tree(root->left, indent, false);
-			// 		_print_tree(root->right, indent, true);
-			// 	}
-			// }
-
 	};
 }
+
 #endif
-
-// int main()
-// {
-// 	red_black_tree bst;
-// 	bst.insert(55);
-// 	bst.insert(65);
-// 	bst.insert(40);
-// 	bst.insert(60);
-// 	bst.insert(75);
-// 	bst.insert(57);
-
-// 	bst.print_tree();
-// 	std::cout << std::endl << "After deleting" << std::endl;
-// 	bst.delete_node(40);
-// 	bst.print_tree();
-// }
-
-// Source: https://www.programiz.com/dsa/red-black-tree/

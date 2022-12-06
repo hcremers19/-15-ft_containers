@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_black_tree.hpp                                 :+:      :+:    :+:   */
+/*   red_black_tree_old.hpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/05 14:51:31 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/06 11:57:45 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ namespace ft
 			red_black_tree(value_compare& comp = value_compare()) : _root(NULL), _node_alloc(), _comp(comp)
 			{
 				_end = _node_alloc.allocate(1);
-				_node_alloc.construct((_end), node_type(_root, _comp));
+				_node_alloc.construct(_end, node_type(_root, _comp));
 				return;
 			}
 

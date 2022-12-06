@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/02 12:02:04 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:10:24 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ namespace ft
 			-------------------------------------------------------------------------------- */
 			explicit stack(const container_type& ctnr = container_type()) : c(ctnr)
 				{return;}
+
+
+			/* ----- OPERATOR OVERLOADS ----- */
+
+			/* --------------------------------------------------------------------------------
+			- Assign content -
+				Assigns new contents to the container, replacing its current contents.
+			-------------------------------------------------------------------------------- */
+			stack&				operator=(const stack& cpy)
+			{
+				c = cpy.c;
+				return;
+			}
 
 
 			/* ----- MEMBER FUNCTIONS -----*/

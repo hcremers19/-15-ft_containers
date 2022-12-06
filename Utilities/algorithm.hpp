@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.hpp                                           :+:      :+:    :+:   */
+/*   algorithm.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:51:15 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/05 09:16:19 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:37:31 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_HPP
-# define UTIL_HPP
-
-# include "../Iterators/iterator_traits.hpp"
+#ifndef ALGORITHM_HPP
+# define ALGORITHM_HPP
 
 namespace ft
 {
@@ -25,7 +23,7 @@ namespace ft
 	Source: https://cplusplus.com/reference/algorithm/equal/
 	------------------------------------------------------------------------ */
 	template<class InputIterator1, class InputIterator2>
-	bool															equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2)
+	bool	equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2)
 	{
 		while (first1 != last1)
 		{
@@ -47,7 +45,7 @@ namespace ft
 	Source: https://cplusplus.com/reference/algorithm/lexicographical_compare/
 	------------------------------------------------------------------------ */
 	template<class InputIterator1, class InputIterator2>
-	bool															lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
+	bool	lexicographical_compare(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
 	{
 		while (first1 != last1)
 		{
