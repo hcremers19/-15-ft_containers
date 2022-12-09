@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:37:55 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/09 11:09:10 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:27:07 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <functional>
 # include "../Iterators/iterator_traits.hpp"
 # include "../Others/pair.hpp"
-# include "../Others/red_black_node.hpp"
+# include "../.trash/red_black_node_old.hpp"
 
 namespace ft
 {

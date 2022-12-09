@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:56:33 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/22 11:08:37 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:20:50 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ namespace ft
 		public:
 			typedef ptrdiff_t								difference_type;
 			typedef T										value_type;
-			typedef T*										pointer;
-			typedef T&										reference;
+			typedef const T*								pointer;
+			typedef const T&								reference;
 			typedef random_access_iterator_tag				iterator_category;
 	};
 }

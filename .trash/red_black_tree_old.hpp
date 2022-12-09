@@ -6,12 +6,12 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/09 11:09:53 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:24:27 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RED_BLACK_TREE_HPP
-# define RED_BLACK_TREE_HPP
+#ifndef RED_BLACK_TREE_OLD_HPP
+# define RED_BLACK_TREE_OLD_HPP
 
 # include <functional>
 # include <memory>

@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/05 14:53:02 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:28:50 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 	}
 	catch(const std::exception& e)
 	{
-		//NORMAL ! :P
+		// NORMAL ! :P
 	}
 
 	for (int i = 0; i < COUNT; ++i)
