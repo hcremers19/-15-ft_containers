@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/06 11:57:45 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:09:53 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <functional>
 # include <memory>
-# include "red_black_node.hpp"
+# include "red_black_node_old.hpp"
 
 namespace ft
 {

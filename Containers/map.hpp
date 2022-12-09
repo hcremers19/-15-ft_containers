@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/02 12:04:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:08:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include <memory>
 # include <functional>
-# include "../Iterators/reverse_iterator.hpp"
 # include "../Iterators/iterator_traits.hpp"
+# include "../Iterators/reverse_iterator.hpp"
 # include "../Iterators/tree_iterator.hpp"
-# include "../Utilities/pair.hpp"
-# include "../Utilities/red_black_tree.hpp"
+# include "../Others/pair.hpp"
+# include "../Others/red_black_tree.hpp"
 
 namespace ft
 {

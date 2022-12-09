@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/06 15:39:48 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:08:46 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define VECTOR_HPP
 
 # include <cstddef>		// size_t
-# include <stdexcept>	// out_of_range
-# include <memory>		// allocator
 # include <iterator>	// distance
+# include <memory>		// allocator
+# include <stdexcept>	// out_of_range
 # include "../Iterators/random_access_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
-# include "../Utilities/algorithm.hpp"
+# include "../Others/algorithm.hpp"
 
 namespace ft
 {
