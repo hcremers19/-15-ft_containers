@@ -6,18 +6,16 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:37:55 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/09 18:27:07 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:36:30 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_ITERATOR_HPP
 # define TREE_ITERATOR_HPP
 
-# include <cstddef>
-# include <functional>
+// # include "../.trash/red_black_node_old.hpp"
+# include "../.trash/rbn.hpp"
 # include "../Iterators/iterator_traits.hpp"
-# include "../Others/pair.hpp"
-# include "../.trash/red_black_node_old.hpp"
 
 namespace ft
 {

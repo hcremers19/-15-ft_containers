@@ -6,7 +6,7 @@
 #    By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 14:08:18 by hcremers          #+#    #+#              #
-#    Updated: 2022/12/05 14:16:58 by hcremers         ###   ########.fr        #
+#    Updated: 2022/12/13 16:39:41 by hcremers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME			= test
 SRC				= main.cpp
 
 OBJ				= $(addprefix $(OBJDIR), $(SRC:.cpp=.o))
-OBJDIR			= objs/
+OBJDIR			= Objects/
 
 CC				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98 -g

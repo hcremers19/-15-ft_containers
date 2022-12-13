@@ -6,20 +6,20 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 11:46:47 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:09:37 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
 
-# include <memory>
 # include <functional>
-# include "../Iterators/iterator_traits.hpp"
-# include "../Iterators/reverse_iterator.hpp"
+
+// # include "../.trash/red_black_tree_old.hpp"
+# include "../.trash/rbt.hpp"
 # include "../Iterators/tree_iterator.hpp"
+# include "../Iterators/reverse_iterator.hpp"
 # include "../Others/pair.hpp"
-# include "../.trash/red_black_tree_old.hpp"
 
 namespace ft
 {

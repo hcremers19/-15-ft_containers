@@ -6,13 +6,14 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:38:52 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/02 11:45:24 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:37:35 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RANDOM_ACCESS_ITERATOR_HPP
 # define RANDOM_ACCESS_ITERATOR_HPP
 
+# include "iterator.hpp"
 # include "iterator_traits.hpp"
 
 namespace ft

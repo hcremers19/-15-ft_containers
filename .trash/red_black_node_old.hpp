@@ -6,15 +6,12 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 18:28:16 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/09 18:24:12 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:24:16 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_NODE_OLD_HPP
 # define RED_BLACK_NODE_OLD_HPP
-
-# include <cstddef>
-# include <memory>
 
 # define RED	true
 # define BLACK	false
