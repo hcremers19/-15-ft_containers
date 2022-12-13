@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 16:39:07 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:23:01 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_HPP
 
 # include <memory>
+# include <stdexcept>
 
 # include "../Iterators/random_access_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"

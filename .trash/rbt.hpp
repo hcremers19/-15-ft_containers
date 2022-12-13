@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/13 16:35:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:21:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define RBT_RED	true
 # define RBT_BLACK	false
+
+# include <memory>
+# include <cstddef>
 
 # include "../Others/pair.hpp"
 

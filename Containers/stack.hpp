@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/06 14:10:24 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:15:19 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ namespace ft
 			stack&				operator=(const stack& cpy)
 			{
 				c = cpy.c;
-				return;
+				return (*this);
 			}
 
 
