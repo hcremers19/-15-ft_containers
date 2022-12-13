@@ -6,15 +6,14 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 11:04:11 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/09 18:24:27 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:28:10 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_TREE_OLD_HPP
 # define RED_BLACK_TREE_OLD_HPP
 
-# include <functional>
-# include <memory>
+# include "../Others/pair.hpp"
 # include "red_black_node_old.hpp"
 
 namespace ft
@@ -134,7 +133,7 @@ namespace ft
 			node_const_type*		search_upper_bound(const value_type& val) const
 				{return (reinterpret_cast<node_const_type*>(_search_upper_bound(val)));}
 
-			pair<node_type*, bool>	insert(node_type& node, node_type* z)
+			ft::pair<node_type*, bool>	insert(node_type& node, node_type* z)
 			{
 				node_type*	previous = NULL;
 
@@ -142,7 +141,7 @@ namespace ft
 				{
 					previous = z;
 					if (node == *z)
-						return (pair<node_type*, bool>(z, false));
+						return (ft::pair<node_type*, bool>(z, false));
 					if (node < *z)
 						z = z->get_left();
 					else
@@ -158,17 +157,17 @@ namespace ft
 				else
 					previous->set_right(new_node);
 				_fix_insertion(new_node);
-				return (pair<node_type*, bool>(new_node, true));
+				return (ft::pair<node_type*, bool>(new_node, true));
 			}
 
-			pair<node_type*, bool>	insert(const value_type& val)
+			ft::pair<node_type*, bool>	insert(const value_type& val)
 			{
 				node_type	tmp(val, _end, _comp);
 
 				return (insert(tmp, _root));
 			}
 
-			pair<node_type*, bool>	insert(const value_type& val, node_type* hint)
+			ft::pair<node_type*, bool>	insert(const value_type& val, node_type* hint)
 			{
 				node_type	tmp(val, _end, _comp);
 
@@ -188,7 +187,7 @@ namespace ft
 			{
 				node_type*				left = k->get_left();
 				node_type*				right = k->get_right();
-				pair<node_type*, bool>	check = pair<node_type*, bool>(k, true);
+				ft::pair<node_type*, bool>	check = ft::pair<node_type*, bool>(k, true);
 				bool					color = k->get_color();
 
 				if (k == _end)
@@ -274,19 +273,19 @@ namespace ft
 		private:
 			/* ----- MEMBER FUNCTIONS ----- */
 
-			pair<node_type*, bool>	_create_child(node_type* parent, bool is_left)
+			ft::pair<node_type*, bool>	_create_child(node_type* parent, bool is_left)
 			{
 				node_type*	child = (is_left ? parent->get_left() : parent->get_right());
 
 				if (child)
-					return (pair<node_type*, bool>(child, false));
+					return (ft::pair<node_type*, bool>(child, false));
 
 				node_type	*new_node = _node_alloc.allocate(1);
 
 				_node_alloc.construct(new_node, node_type(value_type(), NULL, NULL, parent, _end, _comp));
 				new_node->set_color(BLACK);
 				(is_left ? parent->set_left(new_node) : parent->set_right(new_node));
-				return (pair<node_type*, bool>(new_node, true));
+				return (ft::pair<node_type*, bool>(new_node, true));
 			}
 
 			void					_replace_node(node_type* parent, node_type* k, node_type* replacer)
