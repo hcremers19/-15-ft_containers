@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/09 18:24:30 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:46:47 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ namespace ft
 	class map
 	{
 		public:
-			typedef Key													key_type;
-			typedef T													mapped_type;
-			typedef pair<const key_type, mapped_type>					value_type;
-			typedef Compare												key_compare;
-			class value_compare
+			typedef 			Key																										key_type;
+			typedef 			T																										mapped_type;
+			typedef 			pair<const key_type, mapped_type>																		value_type;
+			typedef 			Compare																									key_compare;
+			class																														value_compare
 			{
 				friend class map<Key, T, Compare, Alloc>;
 				protected:
@@ -44,10 +44,10 @@ namespace ft
 						{return (comp(x.first, y.first));}
 			};
 			typedef 			Alloc																									allocator_type;
-			typedef 			value_type&																								reference;
-			typedef 			const value_type&																						const_reference;
-			typedef 			value_type*																								pointer;
-			typedef 			const value_type*																						const_pointer;
+			typedef 			allocator_type::reference																				reference;
+			typedef 			allocator_type::const_reference																			const_reference;
+			typedef 			allocator_type::pointer																					pointer;
+			typedef 			allocator_type::const_pointer																			const_pointer;
 			typedef typename	ft::tree_iterator<value_type, value_compare, red_black_node<value_type, value_compare> >				iterator;
 			typedef typename	ft::tree_iterator<const value_type, value_compare, red_black_node<const value_type, value_compare> >	const_iterator;
 			typedef typename	ft::reverse_iterator<iterator>																			reverse_iterator;
@@ -56,10 +56,10 @@ namespace ft
 			typedef 			size_t																									size_type;
 
 		private:
-			red_black_tree<value_type, Alloc, value_compare>			_tree;
-			size_type													_size;
-			key_compare													_key_comp;
-			value_compare												_val_comp;
+			red_black_tree<value_type, Alloc, value_compare>	_tree;
+			size_type											_size;
+			key_compare											_key_comp;
+			value_compare										_val_comp;
 
 		public:
 			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
