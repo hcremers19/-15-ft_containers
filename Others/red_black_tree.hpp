@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 12:56:55 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:26:43 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T>, class Compare = std::less<T> >
+	template<class T, class Alloc = std::allocator<T>, class Compare = std::less<T> >
 	class red_black_tree
 	{
 		public :

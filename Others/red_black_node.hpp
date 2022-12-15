@@ -20,7 +20,7 @@
 
 namespace ft
 {
-	template <class T, class Compare>
+	template<class T, class Compare>
 	class red_black_node
 	{
 		public:
