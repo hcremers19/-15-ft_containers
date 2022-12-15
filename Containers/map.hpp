@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 17:14:32 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 12:51:07 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 
 # include <functional>
 
-// # include "../.trash/red_black_tree_old.hpp"
-# include "../.trash/rbt.hpp"
 # include "../Iterators/tree_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
 # include "../Others/pair.hpp"
+# include "../Others/red_black_tree.hpp"
 
 namespace ft
 {
@@ -27,10 +26,10 @@ namespace ft
 	class map
 	{
 		public:
-			typedef 			Key																										key_type;
-			typedef 			T																										mapped_type;
-			typedef 			pair<const key_type, mapped_type>																		value_type;
-			typedef 			Compare																									key_compare;
+			typedef			Key																										key_type;
+			typedef			T																										mapped_type;
+			typedef			pair<const key_type, mapped_type>																		value_type;
+			typedef			Compare																									key_compare;
 			class																														value_compare
 			{
 				friend class map<Key, T, Compare, Alloc>;
@@ -43,7 +42,7 @@ namespace ft
 					bool operator()(const value_type& x, const value_type& y) const
 						{return (comp(x.first, y.first));}
 			};
-			typedef 			Alloc																									allocator_type;
+			typedef				Alloc																									allocator_type;
 			typedef typename	allocator_type::reference																				reference;
 			typedef typename	allocator_type::const_reference																			const_reference;
 			typedef typename	allocator_type::pointer																					pointer;
@@ -53,7 +52,7 @@ namespace ft
 			typedef typename	ft::reverse_iterator<iterator>																			reverse_iterator;
 			typedef typename	ft::reverse_iterator<const_iterator>																	const_reverse_iterator;
 			typedef typename	iterator_traits<iterator>::difference_type																difference_type;
-			typedef 			size_t																									size_type;
+			typedef				size_t																									size_type;
 
 		private:
 			red_black_tree<value_type, Alloc, value_compare>	_tree;

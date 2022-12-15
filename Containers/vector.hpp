@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 17:23:01 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 12:51:49 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft
 			typedef				size_t											size_type;
 
 		private:
-			pointer 			_container;
+			pointer				_container;
 			size_type			_size;
 			size_type			_capacity;
 			allocator_type		_alloc;
@@ -326,12 +326,16 @@ namespace ft
 			{
 				if (n > max_size())
 					throw (std::out_of_range("vector::resize"));
+
 				reserve(n);
+
 				for (size_type i = _size; i < n; i++)
 					_alloc.construct(_container + i, val);
+
 				if (_size > 0)
 					for (size_type i = n; i < _size; i++)
 						_alloc.destroy(_container + i);
+
 				_size = n;
 				return;
 			}
@@ -373,6 +377,7 @@ namespace ft
 					throw (std::out_of_range("vector::reserve"));
 				else if (_capacity >= n)
 					return;
+
 				pointer	tmp = _alloc.allocate(n);
 
 				for (size_type i = 0; i < _size; i++)
@@ -380,6 +385,7 @@ namespace ft
 					_alloc.construct(tmp + i, _container[i]);
 					_alloc.destroy(_container + i);
 				}
+
 				_alloc.deallocate(_container, _capacity);
 				_container = tmp;
 				_capacity = n;
@@ -488,8 +494,10 @@ namespace ft
 					_container = _alloc.allocate(size);
 					_capacity = size;
 				}
+
 				for (size_type i = 0; i < size; i++, first++)
 					_alloc.construct(_container + i, *first);
+
 				_size = size;
 				return;
 			}
@@ -514,14 +522,17 @@ namespace ft
 			void					assign(size_type n, const value_type& val)
 			{
 				clear();
+
 				if (n > _capacity)
 				{
 					_alloc.deallocate(_container, _capacity);
 					_container = _alloc.allocate(n);
 					_capacity = n;
 				}
+
 				for (size_type i = 0; i < n; i++)
 					_alloc.construct(_container + i, val);
+
 				_size = n;
 				return;
 			}
@@ -537,6 +548,7 @@ namespace ft
 			{
 				if (_size + 1 > _capacity)
 					reserve(_capacity ? _capacity * 2 : 1);
+
 				_alloc.construct(_container + _size, val);
 				_size++;
 				return;
@@ -553,6 +565,7 @@ namespace ft
 			{
 				if (!_size)
 					return;
+
 				_alloc.destroy(_container + _size - 1);
 				_size--;
 				return;
@@ -643,6 +656,7 @@ namespace ft
 					for (size_t i = pos; i < pos + n; i++)
 						_alloc.construct(_container + i, val);
 				}
+
 				_size += n;
 				return;
 			}
@@ -705,6 +719,7 @@ namespace ft
 					for (size_t i = pos; i < pos + dist; i++)
 						_alloc.construct(_container + i, *first++);
 				}
+
 				_size += dist;
 				return;
 			}
@@ -879,7 +894,7 @@ namespace ft
 	Source: https://cplusplus.com/reference/vector/vector/swap-free/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Alloc>
-	void 							swap(vector<T, Alloc>& x, vector<T, Alloc>& y)
+	void							swap(vector<T, Alloc>& x, vector<T, Alloc>& y)
 	{
 		x.swap(y);
 		return;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rbt.hpp                                            :+:      :+:    :+:   */
+/*   red_black_tree.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 12:30:52 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 12:56:55 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@
 # include <memory>
 # include <cstddef>
 
-# include "../Others/pair.hpp"
-# include "rbn.hpp"
+# include "pair.hpp"
+# include "red_black_node.hpp"
 
 namespace ft
 {
-	// template <class T, class Compare = std::less<T> >
-	// class red_black_node;
-
 	template <class T, class Alloc = std::allocator<T>, class Compare = std::less<T> >
 	class red_black_tree
 	{
@@ -362,17 +359,22 @@ namespace ft
 				node_type*	child_left = right->get_left();
 
 				k->set_right(child_left);
+
 				if (child_left)
 					child_left->set_parent(k);
+
 				right->set_parent(k->get_parent());
+
 				if (!k->get_parent())
 					set_root(right);
 				else if (k == k->get_parent()->get_left())
 					k->get_parent()->set_left(right);
 				else
 					k->get_parent()->set_right(right);
+
 				right->set_left(k);
 				k->set_parent(right);
+
 				return;
 			}
 
@@ -382,17 +384,22 @@ namespace ft
 				node_type*	child_right = left->get_right();
 
 				k->set_left(child_right);
+
 				if (child_right)
 					child_right->set_parent(k);
+
 				left->set_parent(k->get_parent());
+
 				if (!k->get_parent())
 					set_root(left);
 				else if (k == k->get_parent()->get_right())
 					k->get_parent()->set_right(left);
 				else
 					k->get_parent()->set_left(left);
+
 				left->set_right(k);
 				k->set_parent(left);
+
 				return;
 			}
 
