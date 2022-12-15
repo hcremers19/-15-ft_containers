@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_black_node.hpp                                            :+:      :+:    :+:   */
+/*   red_black_node.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:56:12 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 12:34:12 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:38:16 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <memory>
 
-# define RBT_RED	true
-# define RBT_BLACK	false
+# define RED	true
+# define BLACK	false
 
 namespace ft
 {
@@ -46,16 +46,16 @@ namespace ft
 		public:
 			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
 
-			explicit red_black_node(const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(), _color(RBT_RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
+			explicit red_black_node(const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(), _color(RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
 				{return;}
 
-			red_black_node(const value_type& val, const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(val), _color(RBT_RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
+			red_black_node(const value_type& val, const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(val), _color(RED), _left(NULL), _right(NULL), _parent(NULL), _end(ptr), _comp(comp)
 				{return;}
 
-			red_black_node(const pointer parent, const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(), _color(RBT_BLACK), _left(NULL), _right(NULL), _parent(parent), _end(ptr), _comp(comp)
+			red_black_node(const pointer parent, const pointer ptr = NULL, const value_compare& comp = value_compare()) : _content(), _color(BLACK), _left(NULL), _right(NULL), _parent(parent), _end(ptr), _comp(comp)
 				{return;}
 
-			red_black_node(const value_type& val, const pointer left, const pointer right, const pointer parent = NULL, const pointer end = NULL, const value_compare &comp = value_compare()) : _content(val), _color(RBT_RED), _left(left), _right(right), _parent(parent), _end(end), _comp(comp)
+			red_black_node(const value_type& val, const pointer left, const pointer right, const pointer parent = NULL, const pointer end = NULL, const value_compare &comp = value_compare()) : _content(val), _color(RED), _left(left), _right(right), _parent(parent), _end(end), _comp(comp)
 				{return;}
 
 			red_black_node(const node_type &src) : _content(src._content), _color(src._color), _left(src._left), _right(src._right), _parent(src._parent), _end(src._end), _comp(src._comp)
@@ -102,10 +102,10 @@ namespace ft
 			}
 
 			bool			is_red() const
-				{return (_color == RBT_RED);}
+				{return (_color == RED);}
 
 			bool			is_black() const
-				{return (_color == RBT_BLACK);}
+				{return (_color == BLACK);}
 
 			void			set_value(const value_type& val)
 			{

@@ -6,15 +6,15 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 13:26:43 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:38:45 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_TREE_HPP
 # define RED_BLACK_TREE_HPP
 
-# define RBT_RED	true
-# define RBT_BLACK	false
+# define RED	true
+# define BLACK	false
 
 # include <memory>
 # include <cstddef>
@@ -27,7 +27,7 @@ namespace ft
 	template<class T, class Alloc = std::allocator<T>, class Compare = std::less<T> >
 	class red_black_tree
 	{
-		public :
+		public:
 			typedef T													value_type;
 			typedef red_black_node<value_type, Compare>					node_type;
 			typedef red_black_node<const value_type, Compare>			node_const_type;
@@ -40,7 +40,7 @@ namespace ft
 			typedef typename allocator_type::const_pointer				const_pointer;
 			typedef size_t												size_type;
 
-		private :
+		private:
 			node_type*		_root;
 			node_type*		_end;
 			allocator_type	_node_alloc;
@@ -234,7 +234,7 @@ namespace ft
 					smallest->set_color(k->get_color());
 				}
 
-				if (color == RBT_BLACK)
+				if (color == BLACK)
 					_fix_deletion(check.first);
 
 				if (check.second)
@@ -287,8 +287,6 @@ namespace ft
 			}
 
 		private:
-			/* ----- PRIVATE UTILS METHODS ----- */
-
 			pair<node_type*, bool>	_create_child(node_type* parent, bool is_left)
 			{
 				node_type*	child = (is_left ? parent->get_left() : parent->get_right());
@@ -299,7 +297,7 @@ namespace ft
 				node_type*	new_node = _node_alloc.allocate(1);
 
 				_node_alloc.construct(new_node, node_type(value_type(), NULL, NULL, parent, _end, _comp));
-				new_node->set_color(RBT_BLACK);
+				new_node->set_color(BLACK);
 				is_left ? parent->set_left(new_node) : parent->set_right(new_node);
 
 				return (pair<node_type*, bool>(new_node, true));
@@ -414,9 +412,9 @@ namespace ft
 
 					if (_is_red(uncle))
 					{
-						parent->set_color(RBT_BLACK);
-						uncle->set_color(RBT_BLACK);
-						gparent->set_color(RBT_RED);
+						parent->set_color(BLACK);
+						uncle->set_color(BLACK);
+						gparent->set_color(RED);
 						k = gparent;
 					}
 					else
@@ -428,12 +426,12 @@ namespace ft
 							parent = k->get_parent();
 							gparent = parent->get_parent();
 						}
-						parent->set_color(RBT_BLACK);
-						gparent->set_color(RBT_RED);
+						parent->set_color(BLACK);
+						gparent->set_color(RED);
 						is_left ? _right_rotate(gparent) : _left_rotate(gparent);
 					}
 				}
-				_root->set_color(RBT_BLACK);
+				_root->set_color(BLACK);
 				return;
 			}
 
@@ -447,8 +445,8 @@ namespace ft
 
 					if (_is_red(brother))
 					{
-						brother->set_color(RBT_BLACK);
-						parent->set_color(RBT_RED);
+						brother->set_color(BLACK);
+						parent->set_color(RED);
 						is_left ? _left_rotate(parent) : _right_rotate(parent);
 						parent = k->get_parent();
 						brother = is_left ? parent->get_right() : parent->get_left();
@@ -456,7 +454,7 @@ namespace ft
 
 					if (_is_black(brother) && _is_black(brother->get_left()) && _is_black(brother->get_right()))
 					{
-						brother->set_color(RBT_RED);
+						brother->set_color(RED);
 						k = parent;
 						parent = parent->get_parent();
 					}
@@ -465,22 +463,22 @@ namespace ft
 						if ((is_left && _is_black(brother) && _is_black(brother->get_right()) && _is_red(brother->get_left()))
 							|| (!is_left && _is_black(brother) && _is_black(brother->get_left()) && _is_red(brother->get_right())))
 						{
-							is_left ? brother->get_left()->set_color(RBT_BLACK) : brother->get_right()->set_color(RBT_BLACK);
-							brother->set_color(RBT_RED);
+							is_left ? brother->get_left()->set_color(BLACK) : brother->get_right()->set_color(BLACK);
+							brother->set_color(RED);
 							is_left ? _right_rotate(brother) : _left_rotate(brother);
 							parent = k->get_parent();
 							brother = (is_left ? parent->get_right() : parent->get_left());
 						}
 
 						brother->set_color(parent->get_color());
-						parent->set_color(RBT_BLACK);
-						is_left ? brother->get_right()->set_color(RBT_BLACK) : brother->get_left()->set_color(RBT_BLACK);
+						parent->set_color(BLACK);
+						is_left ? brother->get_right()->set_color(BLACK) : brother->get_left()->set_color(BLACK);
 						is_left ? _left_rotate(parent) : _right_rotate(parent);
 						k = _root;
 					}
 				}
 
-				k->set_color(RBT_BLACK);
+				k->set_color(BLACK);
 				return;
 			}
 
