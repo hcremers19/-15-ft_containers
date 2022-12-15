@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 14:55:54 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 13:26:43 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ namespace ft
 	Otherwise, enable_if::type is not defined.
 	This is useful to hide signatures on compile time when a particular condition is not met, since in this case, the member enable_if::type will not be defined and attempting to compile using it should fail.
 
-	Source: https://legacy.cplusplus.com/reference/type_traits/enable_if/
+	Source: https://cplusplus.com/reference/type_traits/enable_if/
 	-------------------------------------------------------------------------------- */
 	template<bool, class T = void>
 	struct enable_if

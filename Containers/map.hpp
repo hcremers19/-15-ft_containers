@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 13:26:43 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ namespace ft
 			- Empty container constructor (default constructor) -
 				Constructs an empty container, with no elements.
 
-			Source: https://legacy.cplusplus.com/reference/map/map/map/
+			Source: https://cplusplus.com/reference/map/map/map/
 			-------------------------------------------------------------------------------- */
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(_val_comp), _size(0), _key_comp(comp), _val_comp(_key_comp)
 			{
@@ -80,7 +80,7 @@ namespace ft
 				Constructs a container with as many elements as the range [first, last], with each element constructed from its corresponding element in that range.
 				The container keeps an internal copy of alloc and comp, which are used to allocate storage and to sort the elements throughout its lifetime.
 
-			Source: https://legacy.cplusplus.com/reference/map/map/map/
+			Source: https://cplusplus.com/reference/map/map/map/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
 			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(_val_comp), _size(0), _key_comp(comp), _val_comp(_key_comp)
@@ -95,7 +95,7 @@ namespace ft
 				Constructs a container with a copy of each of the elements in x.
 				Creates a container that keeps and uses copies of x's allocator and comparison object.
 
-			Source: https://legacy.cplusplus.com/reference/map/map/map/
+			Source: https://cplusplus.com/reference/map/map/map/
 			-------------------------------------------------------------------------------- */
 			map(const map& x) : _tree(x._tree), _size(x.size()), _key_comp(x._key_comp), _val_comp(_key_comp)
 				{return;}
@@ -105,7 +105,7 @@ namespace ft
 				Destroys the container object.
 				This destroys all container elements, and deallocates all the storage capacity allocated by the map container using its allocator.
 
-			Source: https://legacy.cplusplus.com/reference/map/map/~map/
+			Source: https://cplusplus.com/reference/map/map/~map/
 			-------------------------------------------------------------------------------- */
 			~map()
 				{return;}

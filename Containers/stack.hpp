@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 12:51:37 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ namespace ft
 				Since stacks are last-in first-out containers, the top element is the last element inserted into the stack.
 				This member function effectively calls member back of the underlying container object.
 
-			Source: https://legacy.cplusplus.com/reference/stack/stack/top/
+			Source: https://cplusplus.com/reference/stack/stack/top/
 			-------------------------------------------------------------------------------- */
 			value_type&			top()
 				{return (c.back());}
@@ -98,7 +98,7 @@ namespace ft
 				Since stacks are last-in first-out containers, the top element is the last element inserted into the stack.
 				This member function effectively calls member back of the underlying container object.
 
-			Source: https://legacy.cplusplus.com/reference/stack/stack/top/
+			Source: https://cplusplus.com/reference/stack/stack/top/
 			-------------------------------------------------------------------------------- */
 			const value_type&	top() const
 				{return (c.back());}
@@ -112,7 +112,7 @@ namespace ft
 				Value to which the inserted element is initialized.
 				Member type value_type is the type of the elements in the container (defined as an alias of the first class template parameter, T).
 
-			Source: https://legacy.cplusplus.com/reference/stack/stack/push/
+			Source: https://cplusplus.com/reference/stack/stack/push/
 			-------------------------------------------------------------------------------- */
 			void				push(const value_type& val)
 			{
@@ -127,7 +127,7 @@ namespace ft
 				This calls the removed element's destructor.
 				This member function effectively calls the member function pop_back of the underlying container object.
 
-			Source: https://legacy.cplusplus.com/reference/stack/stack/pop/
+			Source: https://cplusplus.com/reference/stack/stack/pop/
 			-------------------------------------------------------------------------------- */
 			void				pop()
 			{
@@ -142,7 +142,7 @@ namespace ft
 		Performs the appropriate comparison operation between lhs and rhs.
 		Calls the same operator on the underlying container objects.
 
-	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
+	Source: https://cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
@@ -153,7 +153,7 @@ namespace ft
 		Performs the appropriate comparison operation between lhs and rhs.
 		Calls the same operator on the underlying container objects.
 
-	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
+	Source: https://cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
@@ -164,7 +164,7 @@ namespace ft
 		Performs the appropriate comparison operation between lhs and rhs.
 		Calls the same operator on the underlying container objects.
 
-	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
+	Source: https://cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
@@ -175,7 +175,7 @@ namespace ft
 		Performs the appropriate comparison operation between lhs and rhs.
 		Calls the same operator on the underlying container objects.
 
-	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
+	Source: https://cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
@@ -186,7 +186,7 @@ namespace ft
 		Performs the appropriate comparison operation between lhs and rhs.
 		Calls the same operator on the underlying container objects.
 
-	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
+	Source: https://cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
@@ -197,7 +197,7 @@ namespace ft
 		Performs the appropriate comparison operation between lhs and rhs.
 		Calls the same operator on the underlying container objects.
 
-	Source: https://legacy.cplusplus.com/reference/stack/stack/operators/
+	Source: https://cplusplus.com/reference/stack/stack/operators/
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)

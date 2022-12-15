@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 14:58:39 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ namespace ft
 				Destroys the container object.
 				This destroys all container elements, and deallocates all the storage capacity allocated by the vector using its allocator.
 
-			Source: https://legacy.cplusplus.com/reference/vector/vector/~vector/
+			Source: https://cplusplus.com/reference/vector/vector/~vector/
 			-------------------------------------------------------------------------------- */
 			~vector()
 			{
