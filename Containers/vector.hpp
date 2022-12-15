@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 12:51:49 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:58:39 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "../Iterators/random_access_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
+# include "../Others/type_traits.hpp"
 
 namespace ft
 {
@@ -106,7 +107,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc)
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) : _alloc(alloc)
 			{
 				_size = std::distance(first, last);
 				_capacity = _size;
@@ -483,7 +484,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/assign/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
-			void					assign(InputIterator first, InputIterator last)
+			void					assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
 			{
 				size_type	size = std::distance(first, last);
 
@@ -679,7 +680,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/insert/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
-			void					insert(iterator position, InputIterator first, InputIterator last)
+			void					insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
 			{
 				size_type	pos = std::distance(begin(), position);
 				size_type	dist = std::distance(first, last);
