@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:56:33 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 17:13:47 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/16 11:05:39 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ namespace ft
 			typedef const T&								reference;
 			typedef random_access_iterator_tag				iterator_category;
 	};
+
+	/* --------------------------------------------------------------------------------
+	- Return distance between iterators -
+		Calculates the number of elements between first and last.
+		The function uses operator- to calculate this.
+
+	Source: https://cplusplus.com/reference/iterator/distance/
+	-------------------------------------------------------------------------------- */
+	template<typename InputIterator>
+	typename iterator_traits<InputIterator>::difference_type 		distance(InputIterator first, InputIterator last)
+		{return (last - first);}
 }
 
 #endif

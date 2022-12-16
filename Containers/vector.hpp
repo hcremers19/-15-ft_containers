@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:45:53 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <memory>
 # include <stdexcept>
 
+# include "../Iterators/iterator_traits.hpp"
 # include "../Iterators/random_access_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
 # include "../Others/type_traits.hpp"
@@ -28,10 +29,10 @@ namespace ft
 		public:																	// Need to declare some public types here to use them privately just after
 			typedef				T												value_type;
 			typedef				Alloc											allocator_type;
-			typedef				value_type&										reference;
-			typedef				const value_type&								const_reference;
-			typedef				value_type*										pointer;
-			typedef				const value_type*								const_pointer;
+			typedef	typename	allocator_type::reference						reference;
+			typedef	typename	allocator_type::const_reference					const_reference;
+			typedef	typename	allocator_type::pointer							pointer;
+			typedef	typename	allocator_type::const_pointer					const_pointer;
 			typedef typename	ft::random_access_iterator<value_type>			iterator;
 			typedef typename	ft::random_access_iterator<const value_type>	const_iterator;
 			typedef typename	ft::reverse_iterator<iterator>					reverse_iterator;
@@ -40,10 +41,10 @@ namespace ft
 			typedef				size_t											size_type;
 
 		private:
-			pointer				_container;
-			size_type			_size;
-			size_type			_capacity;
-			allocator_type		_alloc;
+			pointer			_container;
+			size_type		_size;
+			size_type		_capacity;
+			allocator_type	_alloc;
 
 		public:
 			/* ----- CONSTRUCTORS AND DESTRUCTOR ----- */
@@ -51,12 +52,6 @@ namespace ft
 			/* --------------------------------------------------------------------------------
 			- Empty container constructor (default constructor) -
 			Constructs an empty container, with no elements.
-
-			-alloc
-				Allocator object.
-				The container keeps and uses an internal copy of this allocator.
-				Member type allocator_type is the internal allocator type used by the container, defined in vector as an alias of its second template parameter (Alloc).
-				If allocator_type is an instantiation of the default allocator (which has no state), this is not relevant.
 
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
@@ -67,27 +62,18 @@ namespace ft
 			- Fill constructor -
 				Constructs a container with n elements. Each element is a copy of val.
 
-			-n
-				Initial container size (i.e., the number of elements in the container at construction).
-				Member type size_type is an unsigned integral type.
-			-val
-				Value to fill the container with. Each of the n elements in the container will be initialized to a copy of this value.
-				Member type value_type is the type of the elements in the container, defined in vector as an alias of its first template parameter (T).
-			-alloc
-				Allocator object.
-				The container keeps and uses an internal copy of this allocator.
-				Member type allocator_type is the internal allocator type used by the container, defined in vector as an alias of its second template parameter (Alloc).
-				If allocator_type is an instantiation of the default allocator (which has no state), this is not relevant.
-
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc)
 			{
 				if (n < 0)
 					throw (std::out_of_range("ft::vector"));
+
 				_container = _alloc.allocate(n);
+
 				for (size_type i = 0; i < _size; i++)
 					_alloc.construct(_container + i, val);
+
 				return;
 			}
 
@@ -95,25 +81,18 @@ namespace ft
 			- Range constructor -
 				Constructs a container with as many elements as the range [first, last], with each element constructed from its corresponding element in that range, in the same order.
 
-			-first, last
-				Input iterators to the initial and final positions in a range. The range used is [first, last], which includes all the elements between first and last, including the element pointed by first but not the element pointed by last.
-				The function template argument InputIterator shall be an input iterator type that points to elements of a type from which value_type objects can be constructed.
-			-alloc
-				Allocator object.
-				The container keeps and uses an internal copy of this allocator.
-				Member type allocator_type is the internal allocator type used by the container, defined in vector as an alias of its second template parameter (Alloc).
-				If allocator_type is an instantiation of the default allocator (which has no state), this is not relevant.
-
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) : _alloc(alloc)
 			{
-				_size = std::distance(first, last);
+				_size = ft::distance(first, last);
 				_capacity = _size;
 				_container = _alloc.allocate(_size);
+
 				for (size_type i = 0; first != last; i++)
 					_alloc.construct(_container + i, *first);
+
 				return;
 			}
 
@@ -121,22 +100,22 @@ namespace ft
 			- Copy constructor -
 				Constructs a container with a copy of each of the elements in x, in the same order.
 
-			-x
-				Another vector object of the same type (with the same class template arguments T and Alloc), whose contents are either copied or acquired.
-
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
 			vector(const vector& x)
 			{
 				_alloc = x._alloc;
+
 				const_iterator	first = x.begin();
 				const_iterator	last = x.end();
 
 				_size = x._size;
 				_capacity = _size;
 				_container = _alloc.allocate(_size);
+
 				for (size_type i = 0; first != last; first++, i++)
 					_alloc.construct(_container + i, *first);
+
 				return;
 			}
 
@@ -153,12 +132,14 @@ namespace ft
 
 				for (iterator it = begin(); it != end(); it++, n++)
 					_alloc.destroy(_container + n);
+
 				_alloc.deallocate(_container, _capacity);
+
 				return;
 			}
 
 
-			/* ----- OPERATOR OVERLOADS ----- */
+			/* ----- OPERATOR OVERLOAD ----- */
 
 			/* --------------------------------------------------------------------------------
 			- Assign content -
@@ -169,32 +150,12 @@ namespace ft
 			vector&					operator=(const vector& x)
 			{
 				if (*this == x)
-					return *this;
+					return (*this);
+
 				assign(x.begin(), x.end());
+
 				return (*this);
 			}
-
-			/* --------------------------------------------------------------------------------
-			- Access element -
-				Returns a reference to the element at position n in the vector container.
-				A similar member function, vector::at, has the same behavior as this operator function, except that vector::at is bound-checked and signals if the requested position is out of range by throwing an out_of_range exception.
-				Portable programs should never call this function with an argument n that is out of range, since this causes undefined behavior.
-
-			Source: https://cplusplus.com/reference/vector/vector/operator[]/
-			-------------------------------------------------------------------------------- */
-			reference				operator[](size_type n)
-				{return (_container[n]);}
-
-			/* --------------------------------------------------------------------------------
-			- Access element -
-				Returns a reference to the element at position n in the vector container.
-				A similar member function, vector::at, has the same behavior as this operator function, except that vector::at is bound-checked and signals if the requested position is out of range by throwing an out_of_range exception.
-				Portable programs should never call this function with an argument n that is out of range, since this causes undefined behavior.
-
-			Source: https://cplusplus.com/reference/vector/vector/operator[]/
-			-------------------------------------------------------------------------------- */
-			const_reference			operator[](size_type n) const
-				{return (_container[n]);}
 
 
 			/* ----- MEMBER FUNCTIONS ----- */
@@ -397,6 +358,28 @@ namespace ft
 
 			/* --------------------------------------------------------------------------------
 			- Access element -
+				Returns a reference to the element at position n in the vector container.
+				A similar member function, vector::at, has the same behavior as this operator function, except that vector::at is bound-checked and signals if the requested position is out of range by throwing an out_of_range exception.
+				Portable programs should never call this function with an argument n that is out of range, since this causes undefined behavior.
+
+			Source: https://cplusplus.com/reference/vector/vector/operator[]/
+			-------------------------------------------------------------------------------- */
+			reference				operator[](size_type n)
+				{return (_container[n]);}
+
+			/* --------------------------------------------------------------------------------
+			- Access element -
+				Returns a reference to the element at position n in the vector container.
+				A similar member function, vector::at, has the same behavior as this operator function, except that vector::at is bound-checked and signals if the requested position is out of range by throwing an out_of_range exception.
+				Portable programs should never call this function with an argument n that is out of range, since this causes undefined behavior.
+
+			Source: https://cplusplus.com/reference/vector/vector/operator[]/
+			-------------------------------------------------------------------------------- */
+			const_reference			operator[](size_type n) const
+				{return (_container[n]);}
+
+			/* --------------------------------------------------------------------------------
+			- Access element -
 				Returns a reference to the element at position n in the vector.
 				The function automatically checks whether n is within the bounds of valid elements in the vector, throwing an out_of_range exception if it is not (i.e., if n is greater than, or equal to, its size). This is in contrast with member operator[], that does not check against bounds.
 
@@ -406,6 +389,7 @@ namespace ft
 			{
 				if (n >= _size)
 					throw (std::out_of_range("vector::at"));
+
 				return (_container[n]);
 			}
 
@@ -420,6 +404,7 @@ namespace ft
 			{
 				if (n >= _size)
 					throw (std::out_of_range("vector::at"));
+
 				return (_container[n]);
 			}
 
@@ -477,18 +462,15 @@ namespace ft
 				Any elements held in the container before the call are destroyed and replaced by newly constructed elements (no assignments of elements take place).
 				This causes an automatic reallocation of the allocated storage space if -and only if- the new vector size surpasses the current vector capacity.
 
-			-first, last
-				Input iterators to the initial and final positions in a sequence. The range used is [first, last], which includes all the elements between first and last, including the element pointed by first but not the element pointed by last.
-				The function template argument InputIterator shall be an input iterator type that points to elements of a type from which value_type objects can be constructed.
-
 			Source: https://cplusplus.com/reference/vector/vector/assign/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
 			void					assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
 			{
-				size_type	size = std::distance(first, last);
+				size_type	size = ft::distance(first, last);
 
 				clear();
+
 				if (size > _capacity)
 				{
 					_alloc.deallocate(_container, _capacity);
@@ -510,13 +492,6 @@ namespace ft
 				If a reallocation happens,the storage needed is allocated using the internal allocator.
 				Any elements held in the container before the call are destroyed and replaced by newly constructed elements (no assignments of elements take place).
 				This causes an automatic reallocation of the allocated storage space if -and only if- the new vector size surpasses the current vector capacity.
-
-			-n
-				New size for the container.
-				Member type size_type is an unsigned integral type.
-			-val
-				Value to fill the container with. Each of the n elements in the container will be initialized to a copy of this value.
-				Member type value_type is the type of the elements in the container, defined in vector as an alias of its first template parameter (T).
 
 			Source: https://cplusplus.com/reference/vector/vector/assign/
 			-------------------------------------------------------------------------------- */
@@ -579,13 +554,6 @@ namespace ft
 				Because vectors use an array as their underlying storage, inserting elements in positions other than the vector end causes the container to relocate all the elements that were after position to their new positions. This is generally an inefficient operation compared to the one performed for the same operation by other kinds of sequence containers (such as list or forward_list).
 				The parameters determine how many elements are inserted and to which values they are initialized:
 
-			-position
-				Position in the vector where the new elements are inserted.
-				iterator is a member type, defined as a random access iterator type that points to elements.
-			-val
-				Value to be copied (or moved) to the inserted elements.
-				Member type value_type is the type of the elements in the container, defined in deque as an alias of its first template parameter (T).
-
 			Source: https://cplusplus.com/reference/vector/vector/insert/
 			-------------------------------------------------------------------------------- */
 			iterator				insert(iterator position, const value_type& val)
@@ -593,8 +561,9 @@ namespace ft
 				size_type	dist = 0;
 
 				if (_size)
-					dist = std::distance(begin(), position);
+					dist = ft::distance(begin(), position);
 				insert(position, 1, val);
+
 				return (begin() + dist);
 			}
 
@@ -605,22 +574,12 @@ namespace ft
 				Because vectors use an array as their underlying storage, inserting elements in positions other than the vector end causes the container to relocate all the elements that were after position to their new positions. This is generally an inefficient operation compared to the one performed for the same operation by other kinds of sequence containers (such as list or forward_list).
 				The parameters determine how many elements are inserted and to which values they are initialized:
 
-			-position
-				Position in the vector where the new elements are inserted.
-				iterator is a member type, defined as a random access iterator type that points to elements.
-			-n
-				Number of elements to insert. Each element is initialized to a copy of val.
-				Member type size_type is an unsigned integral type.
-			-val
-				Value to be copied (or moved) to the inserted elements.
-				Member type value_type is the type of the elements in the container, defined in deque as an alias of its first template parameter (T).
-
 			Source: https://cplusplus.com/reference/vector/vector/insert/
 			-------------------------------------------------------------------------------- */
 			void					insert(iterator position, size_type n, const value_type& val)
 			{
 
-				size_type	pos = std::distance(begin(), position);
+				size_type	pos = ft::distance(begin(), position);
 
 				if (_size + n > _capacity)
 				{
@@ -630,8 +589,10 @@ namespace ft
 
 					while (_capacity * size < _size + n)
 						size *= 2;
+
 					if (_capacity * size > max_size())
 						throw std::out_of_range("vector::insert");
+
 					pointer	tmp = _alloc.allocate(_capacity * size);
 
 					for (size_type i = 0; i < pos; i++)
@@ -639,13 +600,16 @@ namespace ft
 						_alloc.construct(tmp + i, _container[i]);
 						_alloc.destroy(_container + i);
 					}
+
 					for (size_type i = 0; i < n; i++)
 						_alloc.construct(tmp + pos + i, val);
+
 					for (size_type i = pos; i < _size; i++)
 					{
 						_alloc.construct(tmp + i + n, _container[i]);
 						_alloc.destroy(_container + i);
 					}
+
 					_alloc.deallocate(_container, _capacity);
 					_container = tmp;
 					_capacity = _capacity * size;
@@ -654,11 +618,12 @@ namespace ft
 				{
 					for (size_t i = _size - 1; i >= static_cast<size_t>(pos); i--)
 						_container[i + n] = _container[i];
+
 					for (size_t i = pos; i < pos + n; i++)
 						_alloc.construct(_container + i, val);
 				}
-
 				_size += n;
+
 				return;
 			}
 
@@ -669,21 +634,13 @@ namespace ft
 				Because vectors use an array as their underlying storage, inserting elements in positions other than the vector end causes the container to relocate all the elements that were after position to their new positions. This is generally an inefficient operation compared to the one performed for the same operation by other kinds of sequence containers (such as list or forward_list).
 				The parameters determine how many elements are inserted and to which values they are initialized:
 
-			-position
-				Position in the vector where the new elements are inserted.
-				iterator is a member type, defined as a random access iterator type that points to elements.
-			-first, last
-				Iterators specifying a range of elements. Copies of the elements in the range [first, last] are inserted at position (in the same order).
-				Notice that the range includes all the elements between first and last, including the element pointed by first but not the one pointed by last.
-				The function template argument InputIterator shall be an input iterator type that points to elements of a type from which value_type objects can be constructed.
-
 			Source: https://cplusplus.com/reference/vector/vector/insert/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
 			void					insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
 			{
-				size_type	pos = std::distance(begin(), position);
-				size_type	dist = std::distance(first, last);
+				size_type	pos = ft::distance(begin(), position);
+				size_type	dist = ft::distance(first, last);
 
 				if (_size + dist > _capacity)
 				{
@@ -720,8 +677,8 @@ namespace ft
 					for (size_t i = pos; i < pos + dist; i++)
 						_alloc.construct(_container + i, *first++);
 				}
-
 				_size += dist;
+
 				return;
 			}
 
@@ -762,8 +719,8 @@ namespace ft
 
 				for (; itp != end(); it++, itp++)
 					*it = *itp;
-				_size -= std::distance(first, last);
-				return (iterator(_container + std::distance(begin(), first)));
+				_size -= ft::distance(first, last);
+				return (iterator(_container + ft::distance(begin(), first)));
 			}
 
 			/* --------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:34:30 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <functional>
 
-# include "../Iterators/tree_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
+# include "../Iterators/tree_iterator.hpp"
 # include "../Others/pair.hpp"
 # include "../Others/red_black_tree.hpp"
 
@@ -26,10 +26,10 @@ namespace ft
 	class map
 	{
 		public:
-			typedef			Key																										key_type;
-			typedef			T																										mapped_type;
-			typedef			pair<const key_type, mapped_type>																		value_type;
-			typedef			Compare																									key_compare;
+			typedef				Key																										key_type;
+			typedef				T																										mapped_type;
+			typedef				pair<const key_type, mapped_type>																		value_type;
+			typedef				Compare																									key_compare;
 			class																														value_compare
 			{
 				friend class map<Key, T, Compare, Alloc>;
@@ -286,17 +286,11 @@ namespace ft
 
 			/* --------------------------------------------------------------------------------
 			- Insert elements -
-				Extends the container by inserting new elements, effectively increasing the container size by the number of elements inserted.
+				Extends the container by inserting val, effectively increasing the container size by one.
 				Because element keys in a map are unique, the insertion operation checks whether each inserted element has a key equivalent to the one of an element already in the container, and if so, the element is not inserted, returning an iterator to this existing element (if the function returns a value).
 				An alternative way to insert elements in a map is by using member function map::operator[].
 				Internally, map containers keep all their elements sorted by their key following the criterion specified by its comparison object. The elements are always inserted in its respective position following this ordering.
 				The parameters determine how many elements are inserted and to which values they are initialized.
-
-			-val
-				Value to be copied to (or moved as) the inserted element.
-				Member type value_type is the type of the elements in the container, defined in map as pair<const key_type,mapped_type> (see map member types).
-				The template parameter P shall be a type convertible to value_type.
-				If P is instantiated as a reference type, the argument is copied.
 
 			Returns a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or to the element with an equivalent key in the map. The pair::second element in the pair is set to true if a new element was inserted or false if an equivalent key already existed.
 
@@ -320,47 +314,32 @@ namespace ft
 				Internally, map containers keep all their elements sorted by their key following the criterion specified by its comparison object. The elements are always inserted in its respective position following this ordering.
 				The parameters determine how many elements are inserted and to which values they are initialized.
 
-			-val
-				Value to be copied to (or moved as) the inserted element.
-				Member type value_type is the type of the elements in the container, defined in map as pair<const key_type,mapped_type> (see map member types).
-				The template parameter P shall be a type convertible to value_type.
-				If P is instantiated as a reference type, the argument is copied.
-			-position
-				Hint for the position where the element can be inserted.
-				The function optimizes its insertion time if position points to the element that will precede the inserted element.
-				Notice that this is just a hint and does not force the new element to be inserted at that position within the map container (the elements in a map always follow a specific order depending on their key).
-				Member types iterator and const_iterator are defined in map as bidirectional iterator types that point to elements.
-
 			Returns an iterator pointing to either the newly inserted element or to the element that already had an equivalent key in the map.
 
 			Source: https://cplusplus.com/reference/map/map/insert/
 			-------------------------------------------------------------------------------- */
-			iterator								insert(iterator position, const value_type& val)
+			iterator								insert(iterator hint, const value_type& val)
 			{
 				pair<red_black_node<value_type, value_compare>*, bool>	tmp;
 
-				if (position != begin() && position != end() && _val_comp(*(--position), val) && _val_comp(val, *(++position)))
-					tmp = _tree.insert(val, position);
+				if (hint != begin() && hint != end() && _val_comp(*(--hint), val) && _val_comp(val, *(++hint)))
+					tmp = _tree.insert(val, hint);
 				else
 					tmp = _tree.insert(val);
 
 				if (tmp.second)
 					_size++;
+
 				return (iterator(tmp.first));
 			}
 
 			/* --------------------------------------------------------------------------------
 			- Insert elements -
 				Extends the container by inserting new elements, effectively increasing the container size by the number of elements inserted.
-				Because element keys in a map are unique, the insertion operation checks whether each inserted element has a key equivalent to the one of an element already in the container, and if so, the element is not inserted, returning an iterator to this existing element (if the function returns a value).
+				Because element keys in a map are unique, the insertion operation checks whether each inserted element has a key equivalent to the one of an element already in the container, and if so, the element is not inserted.
 				An alternative way to insert elements in a map is by using member function map::operator[].
 				Internally, map containers keep all their elements sorted by their key following the criterion specified by its comparison object. The elements are always inserted in its respective position following this ordering.
 				The parameters determine how many elements are inserted and to which values they are initialized.
-
-			-first, last
-				Iterators specifying a range of elements. Copies of the elements in the range [first, last] are inserted in the container.
-				Notice that the range includes all the elements between first and last, including the element pointed by first but not the one pointed by last.
-				The function template argument InputIterator shall be an input iterator type that points to elements of a type from which value_type objects can be constructed.
 
 			Source: https://cplusplus.com/reference/map/map/insert/
 			-------------------------------------------------------------------------------- */
@@ -505,7 +484,7 @@ namespace ft
 			{
 				value_type	val(k, mapped_type());
 
-				return (iterator(_tree.search()));
+				return (iterator(_tree.search(val)));
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -520,7 +499,7 @@ namespace ft
 			{
 				value_type	val(k, mapped_type());
 
-				return (static_cast<const_iterator>(_tree.search()));
+				return (static_cast<const_iterator>(_tree.search(val)));
 			}
 
 			/* --------------------------------------------------------------------------------
