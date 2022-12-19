@@ -6,18 +6,19 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 16:32:35 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:16:18 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Containers/map.hpp"
+
 
 #include <iostream>
 #include <sys/time.h>
 
 #define NBR 100000
 
-int main()
+void	ft_map()
 {
 	struct timeval	begin, end;
 	gettimeofday(&begin, 0);
@@ -153,6 +154,8 @@ int main()
 	double	time		= seconds * 1e6 + useconds;
 
 	std::cout << "Execution time: " << time << " microseconds." << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 
-	return (0);
+	return;
 }

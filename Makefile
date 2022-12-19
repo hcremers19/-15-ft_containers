@@ -6,7 +6,7 @@
 #    By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 14:08:18 by hcremers          #+#    #+#              #
-#    Updated: 2022/12/19 16:25:24 by hcremers         ###   ########.fr        #
+#    Updated: 2022/12/19 17:13:51 by hcremers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,15 @@ NAME			= $(NAME1) $(NAME2)
 NAME1			= ft_containers
 NAME2			= std_containers
 
-SRC1			= Tests/ft_map.cpp
-SRC2			= Tests/std_map.cpp
+SRC1			= ft_main.cpp \
+				Tests/ft_map.cpp \
+				Tests/ft_stack.cpp \
+				Tests/ft_vector.cpp \
+
+SRC2			= std_main.cpp \
+				Tests/std_map.cpp \
+				Tests/std_stack.cpp \
+				Tests/std_vector.cpp \
 
 OBJ				= $(OBJ1) $(OBJ2)
 OBJ1			= $(SRC1:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 16:08:19 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:19:58 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,19 @@ public:
 	iterator 		end()					{return this->c.end();}
 };
 
+void	std_map();
+void	std_stack();
+void	std_vector();
+
 int main(int argc, char** argv)
 {
+	std_map();
+	std_stack();
+	std_vector();
+
 	if (argc != 2)
 	{
-		std::cerr << "Usage: ./test seed" << std::endl;
+		std::cerr << "Usage: ./std_containers <seed>" << std::endl;
 		std::cerr << "Provide a seed please" << std::endl;
 		std::cerr << "Count value: " << COUNT << std::endl;
 		return (1);

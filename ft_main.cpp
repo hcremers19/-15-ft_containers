@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ft_main.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 16:06:48 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:19:42 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "Containers/map.hpp"
 #include "Containers/stack.hpp"
 #include "Containers/vector.hpp"
+
 
 #include <stdlib.h>
 
@@ -49,11 +50,19 @@ public:
 	iterator 		end()					{return this->c.end();}
 };
 
+void	ft_map();
+void	ft_stack();
+void	ft_vector();
+
 int main(int argc, char** argv)
 {
+	ft_map();
+	ft_stack();
+	ft_vector();
+
 	if (argc != 2)
 	{
-		std::cerr << "Usage: ./test seed" << std::endl;
+		std::cerr << "Usage: ./ft_containers <seed>" << std::endl;
 		std::cerr << "Provide a seed please" << std::endl;
 		std::cerr << "Count value: " << COUNT << std::endl;
 		return (1);
