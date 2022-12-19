@@ -6,21 +6,16 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 15:48:02 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:35:35 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if 0
-# include <stack>
-  namespace ft = std;
-#else
-# include "Containers/stack.hpp"
-#endif
+#include "../Containers/stack.hpp"
 
 #include <iostream>
 #include <sys/time.h>
 
-#define NBR 20000
+#define NBR 100000
 
 int main()
 {

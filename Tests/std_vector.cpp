@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.cpp                                         :+:      :+:    :+:   */
+/*   std_vector.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 15:47:54 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:43:37 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if 0
-# include <vector>
-  namespace ft = std;
-#else
-# include "Containers/vector.hpp"
-#endif
+#include <vector>
+namespace ft = std;
 
 #include <iostream>
 #include <sys/time.h>
 
-#define NBR 20000
+#define NBR 100000
 
 int main()
 {

@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.cpp                                            :+:      :+:    :+:   */
+/*   ft_map.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 15:49:14 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:32:35 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if 0
-# include <map>
-  namespace ft = std;
-#else
-# include "Containers/map.hpp"
-#endif
+#include "../Containers/map.hpp"
 
 #include <iostream>
 #include <sys/time.h>
 
-#define NBR 20000
+#define NBR 100000
 
 int main()
 {

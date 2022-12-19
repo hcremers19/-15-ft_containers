@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:17:43 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 15:19:54 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:12:54 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ namespace ft
 
 			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
 			-------------------------------------------------------------------------------- */
-			template<class Iterator>
-			reverse_iterator(const reverse_iterator<Iterator>& rev_it) : _base_iterator(rev_it.base())
+			template<class Iter>
+			reverse_iterator(const reverse_iterator<Iter>& rev_it) : _base_iterator(rev_it.base())
 				{return;}
 
 
