@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 11:19:06 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:38:55 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -520,7 +520,7 @@ namespace ft
 				{
 					previous = z;
 					if (*z == tmp)
-						return z;
+						return (z);
 					else if (tmp > *z)
 						z = z->get_right();
 					else
@@ -528,11 +528,11 @@ namespace ft
 				}
 
 				if (!previous)
-					return _end;
+					return (_end);
 				else if (tmp > *previous)
-					return previous->iterate();
+					return (previous->iterate());
 
-				return previous;
+				return (previous);
 			}
 
 			node_type*				_search_upper_bound(const value_type& val) const
