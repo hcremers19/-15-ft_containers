@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 10:37:55 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ namespace ft
 				Constructs a stack container adaptor object.
 				A container adaptor keeps internally a container object as data. This container object is a copy of the ctnr argument passed to the constructor, if any, otherwise it is an empty container.
 
-			-ctnr
-				Container object.
-				container_type is the type of the underlying container type (defined as an alias of the second class template parameter, Container; see member types).
-
 			Source: https://cplusplus.com/reference/stack/stack/stack/
 			-------------------------------------------------------------------------------- */
 			explicit stack(const container_type& ctnr = container_type()) : c(ctnr)
@@ -62,7 +58,7 @@ namespace ft
 			/* ----- MEMBER FUNCTIONS -----*/
 
 			/* --------------------------------------------------------------------------------
-			Test whether container is empty
+			- Test whether container is empty -
 				Returns whether the stack is empty: i.e. whether its size is zero.
 				This member function effectively calls member empty of the underlying container object.
 
@@ -72,7 +68,7 @@ namespace ft
 				{return (c.empty());}
 
 			/* --------------------------------------------------------------------------------
-			Return size
+			- Return size -
 				Returns the number of elements in the stack.
 				This member function effectively calls member size of the underlying container object.
 
@@ -82,7 +78,7 @@ namespace ft
 				{return (c.size());}
 
 			/* --------------------------------------------------------------------------------
-			Access next element
+			- Access next element -
 				Returns a reference to the top element in the stack.
 				Since stacks are last-in first-out containers, the top element is the last element inserted into the stack.
 				This member function effectively calls member back of the underlying container object.
@@ -93,7 +89,7 @@ namespace ft
 				{return (c.back());}
 
 			/* --------------------------------------------------------------------------------
-			Access next element
+			- Access next element -
 				Returns a constant reference to the top element in the stack.
 				Since stacks are last-in first-out containers, the top element is the last element inserted into the stack.
 				This member function effectively calls member back of the underlying container object.
@@ -104,13 +100,9 @@ namespace ft
 				{return (c.back());}
 
 			/* --------------------------------------------------------------------------------
-			Insert element
+			- Insert element -
 				Inserts a new element at the top of the stack, above its current top element. The content of this new element is initialized to a copy of val.
 				This member function effectively calls the member function push_back of the underlying container object.
-
-			-val
-				Value to which the inserted element is initialized.
-				Member type value_type is the type of the elements in the container (defined as an alias of the first class template parameter, T).
 
 			Source: https://cplusplus.com/reference/stack/stack/push/
 			-------------------------------------------------------------------------------- */
@@ -121,7 +113,7 @@ namespace ft
 			}
 
 			/* --------------------------------------------------------------------------------
-			Remove top element
+			- Remove top element -
 				Removes the element on top of the stack, effectively reducing its size by one.
 				The element removed is the latest element inserted into the stack, whose value can be retrieved by calling member stack::top.
 				This calls the removed element's destructor.

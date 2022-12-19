@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:37:55 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 12:45:05 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:08:27 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ namespace ft
 			operator			tree_iterator<const T, Compare, red_black_node<const T, Compare> >() const
 			{
 				const iterator&	it = *this;
+
 				return (reinterpret_cast<const tree_iterator<const T, Compare, red_black_node<const T, Compare> >&>(it));
 			}
 
@@ -76,6 +77,7 @@ namespace ft
 			iterator&			operator++()
 			{
 				_content = _content->iterate();
+
 				return (*this);
 			}
 
@@ -84,12 +86,14 @@ namespace ft
 				tree_iterator	tmp(*this);
 
 				_content = _content->iterate();
+
 				return (*this);
 			}
 
 			iterator&			operator--()
 			{
 				_content = _content->reverse_iterate();
+
 				return (*this);
 			}
 
@@ -98,6 +102,7 @@ namespace ft
 				tree_iterator	tmp(*this);
 
 				_content = _content->reverse_iterate();
+
 				return (*this);
 			}
 

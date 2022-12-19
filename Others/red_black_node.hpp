@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:56:12 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 17:38:16 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:12:08 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ namespace ft
 			{
 				while (ptr && ptr->_left)
 					ptr = ptr->_left;
+
 				return (ptr);
 			}
 
@@ -205,6 +206,7 @@ namespace ft
 			{
 				while (ptr && ptr->_right)
 					ptr = ptr->_right;
+
 				return (ptr);
 			}
 
@@ -212,9 +214,7 @@ namespace ft
 			/* ----- OPERATORS ----- */
 
 			operator		red_black_node<const T, Compare>() const
-			{
-				return (red_black_node<const T, Compare>(*this));
-			}
+				{return (red_black_node<const T, Compare>(*this));}
 
 
 			/* ----- RELATIONAL OPERATORS ----- */

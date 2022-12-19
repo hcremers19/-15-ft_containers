@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:17:43 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 15:26:14 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:07:21 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,13 @@ namespace ft
 			reverse_iterator()
 			{
 				_base_iterator = NULL;
+
 				return;
 			}
 
 			/* --------------------------------------------------------------------------------
 			- Initalization constructor -
 				Constructs a reverse iterator from some original iterator it. The behavior of the constructed object replicates the original, except that it iterates through its pointed elements in the reverse order.
-
-			-it
-				An iterator, whose sense of iteration is inverted in the constructed object.
-				Member type iterator_type is the underlying bidirectional iterator type (the class template parameter: Iterator).
 
 			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
 			-------------------------------------------------------------------------------- */
@@ -61,9 +58,6 @@ namespace ft
 			/* --------------------------------------------------------------------------------
 			- Copy / type-cast constructor -
 				Constructs a reverse iterator from some other reverse iterator. The constructed object keeps the same sense of iteration as rev_it.
-
-			-rev_it
-				An iterator of a reverse_iterator type, whose sense of iteration is preserved.
 
 			Source: https://cplusplus.com/reference/iterator/reverse_iterator/reverse_iterator/
 			-------------------------------------------------------------------------------- */
@@ -75,7 +69,7 @@ namespace ft
 			/* ----- OPERATOR OVERLOADS ----- */
 
 			/* --------------------------------------------------------------------------------
-			- ??? -
+			- Const iterator overload -
 			-------------------------------------------------------------------------------- */
 			operator			reverse_iterator<const Iterator>() const
 				{return (_base_iterator);}
@@ -90,7 +84,8 @@ namespace ft
 			-------------------------------------------------------------------------------- */
 			reference			operator*() const
 			{
-				iterator_type tmp(_base_iterator);
+				iterator_type	tmp(_base_iterator);
+
 				return (*(--tmp));
 			}
 
@@ -117,6 +112,7 @@ namespace ft
 			reverse_iterator&	operator++()
 			{
 				--_base_iterator;
+
 				return (*this);
 			}
 
@@ -131,7 +127,9 @@ namespace ft
 			reverse_iterator	operator++(int)
 			{
 				reverse_iterator	tmp(*this);
+
 				--_base_iterator;
+
 				return (tmp);
 			}
 
@@ -146,6 +144,7 @@ namespace ft
 			reverse_iterator&	operator+=(difference_type n)
 			{
 				_base_iterator -= n;
+
 				return (*this);
 			}
 
@@ -172,6 +171,7 @@ namespace ft
 			reverse_iterator&	operator--()
 			{
 				++_base_iterator;
+
 				return (*this);
 			}
 
@@ -186,7 +186,9 @@ namespace ft
 			reverse_iterator	operator--(int)
 			{
 				reverse_iterator	tmp(*this);
+
 				++_base_iterator;
+
 				return (tmp);
 			}
 
@@ -201,6 +203,7 @@ namespace ft
 			reverse_iterator&	operator-=(difference_type n)
 			{
 				_base_iterator += n;
+
 				return (*this);
 			}
 
@@ -222,9 +225,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/iterator/reverse_iterator/operator[]/
 			-------------------------------------------------------------------------------- */
 			reference			operator[](difference_type n) const
-			{
-				return (*(_base_iterator - n - 1));
-			}
+				{return (*(_base_iterator - n - 1));}
 
 
 			/* ----- MEMBER FUNCTION ----- */

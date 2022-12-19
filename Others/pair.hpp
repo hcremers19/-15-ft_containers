@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:14:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 15:13:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:17:44 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ namespace ft
 			{
 				first = pr.first;
 				second = pr.second;
+
 				return (*this);
 			}
 	};

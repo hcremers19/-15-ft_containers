@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/16 15:45:53 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:05:39 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,7 @@ namespace ft
 						_alloc.destroy(_container + i);
 
 				_size = n;
+
 				return;
 			}
 
@@ -351,6 +352,7 @@ namespace ft
 				_alloc.deallocate(_container, _capacity);
 				_container = tmp;
 				_capacity = n;
+
 				return;
 			}
 
@@ -482,6 +484,7 @@ namespace ft
 					_alloc.construct(_container + i, *first);
 
 				_size = size;
+
 				return;
 			}
 
@@ -510,6 +513,7 @@ namespace ft
 					_alloc.construct(_container + i, val);
 
 				_size = n;
+
 				return;
 			}
 
@@ -527,6 +531,7 @@ namespace ft
 
 				_alloc.construct(_container + _size, val);
 				_size++;
+
 				return;
 			}
 
@@ -544,6 +549,7 @@ namespace ft
 
 				_alloc.destroy(_container + _size - 1);
 				_size--;
+
 				return;
 			}
 
@@ -696,9 +702,12 @@ namespace ft
 				iterator	ite = end();
 
 				_alloc.destroy(position.base());
+
 				for (iterator tmp = it + 1; tmp != ite; ++it, ++tmp)
 					*it = *tmp;
+
 				--_size;
+
 				return (position);
 			}
 
@@ -714,12 +723,15 @@ namespace ft
 			{
 				for (iterator it = first; it != last; ++it)
 					_alloc.destroy(it.base());
+
 				iterator	it = first;
 				iterator	itp = last;
 
 				for (; itp != end(); it++, itp++)
 					*it = *itp;
+
 				_size -= ft::distance(first, last);
+
 				return (iterator(_container + ft::distance(begin(), first)));
 			}
 
@@ -744,6 +756,7 @@ namespace ft
 				x._container = tmp_container;
 				x._size = tmp_size;
 				x._capacity = tmp_capacity;
+
 				return;
 			}
 
@@ -758,7 +771,9 @@ namespace ft
 			{
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(_container + i);
+
 				_size = 0;
+
 				return;
 			}
 
@@ -855,6 +870,7 @@ namespace ft
 	void							swap(vector<T, Alloc>& x, vector<T, Alloc>& y)
 	{
 		x.swap(y);
+
 		return;
 	}
 }

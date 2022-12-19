@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/16 14:34:30 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:04:13 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ namespace ft
 			{
 				_tree = x._tree;
 				_size = x._size;
+
 				return (*this);
 			}
 
@@ -146,7 +147,9 @@ namespace ft
 
 				if (it != ite)
 					return (it->second);
+
 				_size++;
+
 				return (_tree.insert(v).first->get_value().second);
 			}
 
@@ -165,6 +168,7 @@ namespace ft
 			{
 				if (!_size)
 					return (end());
+
 				return (iterator(red_black_node<value_type, value_compare>::get_smallest(_tree.get_root())));
 			}
 
@@ -180,6 +184,7 @@ namespace ft
 			{
 				if (!_size)
 					return (end());
+
 				return (static_cast<const_iterator>(red_black_node<const value_type, value_compare>::get_smallest(_tree.get_root())));
 			}
 
@@ -303,6 +308,7 @@ namespace ft
 
 				if (itp.second)
 					_size++;
+
 				return (itp);
 			}
 
@@ -422,10 +428,12 @@ namespace ft
 			void									swap(map& x)
 			{
 				_tree.swap_content(x._tree);
+
 				size_type	tmp = x._size;
 
 				x._size = _size;
 				_size = tmp;
+
 				return;
 			}
 
@@ -439,6 +447,7 @@ namespace ft
 			{
 				_tree.clear();
 				_size = 0;
+
 				return;
 			}
 
@@ -516,6 +525,7 @@ namespace ft
 
 				if (_tree.search(val) == _tree.get_end())
 					return (0);
+
 				return (1);
 			}
 

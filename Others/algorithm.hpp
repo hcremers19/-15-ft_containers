@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 11:51:15 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/06 15:37:31 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:08:57 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ namespace ft
 		{
 			if (!(*first1 == *first2))
 				return (false);
+
 			++first1;
 			++first2;
 		}
+
 		return (true);
 	}
 
@@ -53,9 +55,11 @@ namespace ft
 				return (false);
 			else if (*first1 < *first2)
 				return (true);
+
 			++first1;
 			++first2;
 		}
+
 		return (first2 != last2);
 	}
 }

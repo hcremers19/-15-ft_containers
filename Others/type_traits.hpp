@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 14:55:54 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/15 17:25:28 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:19:27 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<bool, class T = void>
 	struct enable_if
-	{};
+		{};
 
 	template<class T>
 	struct enable_if<true, T>

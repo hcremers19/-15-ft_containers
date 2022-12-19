@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:38:52 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/13 16:37:35 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:06:13 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,25 @@ namespace ft
 			random_access_iterator	operator++(int)
 			{
 				random_access_iterator	tmp(*this);
+
 				++_content;
+
 				return (tmp);
 			}
 
 			random_access_iterator&	operator--()
 			{
 				--_content;
+
 				return (*this);
 			}
 
 			random_access_iterator	operator--(int)
 			{
 				random_access_iterator	tmp(*this);
+
 				--_content;
+
 				return (tmp);
 			}
 
@@ -99,12 +104,14 @@ namespace ft
 			random_access_iterator	operator+=(difference_type rhs)
 			{
 				_content += rhs;
+
 				return (*this);
 			}
 
 			random_access_iterator	operator-=(difference_type rhs)
 			{
 				_content -= rhs;
+
 				return (*this);
 			}
 

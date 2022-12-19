@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 17:38:45 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:19:06 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ namespace ft
 			{
 				_end = _node_alloc.allocate(1);
 				_node_alloc.construct(_end, node_type(_root, _comp));
+
 				return;
 			}
 
@@ -70,6 +71,7 @@ namespace ft
 			~red_black_tree()
 			{
 				clear();
+
 				_node_alloc.destroy(_end);
 				_node_alloc.deallocate(_end, 1);
 			}
@@ -113,6 +115,7 @@ namespace ft
 			{
 				_root = ptr;
 				_end->set_end(ptr);
+
 				return;
 			}
 
@@ -120,6 +123,7 @@ namespace ft
 			{
 				_end = ptr;
 				_end->set_end(_root);
+
 				return;
 			}
 
@@ -162,13 +166,16 @@ namespace ft
 				node_type* new_node = _node_alloc.allocate(1);
 
 				_node_alloc.construct(new_node, node_type(node.get_value(), NULL, NULL, previous, _end, _comp));
+
 				if (!previous)
 					set_root(new_node);
 				else if (node < *previous)
 					previous->set_left(new_node);
 				else
 					previous->set_right(new_node);
+
 				_fix_insertion(new_node);
+
 				return (pair<node_type*, bool>(new_node, true));
 			}
 
@@ -261,8 +268,8 @@ namespace ft
 					erase(nd);
 					nd = tmp;
 				}
-
 				_root = NULL;
+
 				return;
 			}
 
@@ -271,6 +278,7 @@ namespace ft
 				node_type*	new_node = _node_alloc.allocate(1);
 
 				_node_alloc.construct(new_node, node_type(content, left, right, parent, _end, _comp));
+
 				return (new_node);
 			}
 
@@ -283,6 +291,7 @@ namespace ft
 				tree._end = get_end();
 				_root = tmp_root;
 				_end = tmp_end;
+
 				return;
 			}
 
@@ -432,6 +441,7 @@ namespace ft
 					}
 				}
 				_root->set_color(BLACK);
+
 				return;
 			}
 
@@ -516,10 +526,12 @@ namespace ft
 					else
 						z = z->get_left();
 				}
+
 				if (!previous)
 					return _end;
 				else if (tmp > *previous)
 					return previous->iterate();
+
 				return previous;
 			}
 
