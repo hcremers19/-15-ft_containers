@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 11:42:54 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:49:14 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@
 #endif
 
 #include <iostream>
+#include <sys/time.h>
 
 #define NBR 20000
 
 int main()
 {
+	struct timeval	begin, end;
+	gettimeofday(&begin, 0);
+
 	{
 		std::cout << "----- INT MAPS -----" << std::endl << std::endl;
 		ft::map<int, int>					mp1;
@@ -42,13 +46,13 @@ int main()
 		mp1.clear();
 
 		std::cout << "--- Capacity functions ---" << std::endl;
-		std::cout << "mp1.size\u001b[16G= " << mp1.size() << std::endl;
-		std::cout << "mp1.max_size\u001b[16G= " << mp1.max_size() << std::endl;
-		std::cout << "mp1.empty\u001b[16G= " << mp1.empty() << std::endl << std::endl;
+		std::cout << "mp1.size()		\u001b[16G= " << mp1.size() << std::endl;
+		std::cout << "mp1.max_size()	\u001b[16G= " << mp1.max_size() << std::endl;
+		std::cout << "mp1.empty()		\u001b[16G= " << mp1.empty() << std::endl << std::endl;
 
-		std::cout << "mp2.size\u001b[16G= " << mp2.size() << std::endl;
-		std::cout << "mp2.max_size\u001b[16G= " << mp2.max_size() << std::endl;
-		std::cout << "mp2.empty\u001b[16G= " << mp2.empty() << std::endl << std::endl;
+		std::cout << "mp2.size()		\u001b[16G= " << mp2.size() << std::endl;
+		std::cout << "mp2.max_size()	\u001b[16G= " << mp2.max_size() << std::endl;
+		std::cout << "mp2.empty()		\u001b[16G= " << mp2.empty() << std::endl << std::endl;
 
 		std::cout << "--- Modifier functions ---" << std::endl;
 
@@ -64,7 +68,7 @@ int main()
 		ft::map<int, int>::iterator	ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it.base()->get_value().first << "]\u001b[12G= " << it.base()->get_value().second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\u001b[12G= " << it->second << std::endl;
 			it++;
 		}
 
@@ -78,7 +82,7 @@ int main()
 		ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it.base()->get_value().first << "]\u001b[12G= " << it.base()->get_value().second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\u001b[12G= " << it->second << std::endl;
 			it++;
 		}
 
@@ -105,13 +109,13 @@ int main()
 		mp1.clear();
 
 		std::cout << "--- Capacity functions ---" << std::endl;
-		std::cout << "mp1.size\u001b[16G= " << mp1.size() << std::endl;
-		std::cout << "mp1.max_size\u001b[16G= " << mp1.max_size() << std::endl;
-		std::cout << "mp1.empty\u001b[16G= " << mp1.empty() << std::endl << std::endl;
+		std::cout << "mp1.size()		\u001b[16G= " << mp1.size() << std::endl;
+		std::cout << "mp1.max_size()	\u001b[16G= " << mp1.max_size() << std::endl;
+		std::cout << "mp1.empty()		\u001b[16G= " << mp1.empty() << std::endl << std::endl;
 
-		std::cout << "mp2.size\u001b[16G= " << mp2.size() << std::endl;
-		std::cout << "mp2.max_size\u001b[16G= " << mp2.max_size() << std::endl;
-		std::cout << "mp2.empty\u001b[16G= " << mp2.empty() << std::endl << std::endl;
+		std::cout << "mp2.size()		\u001b[16G= " << mp2.size() << std::endl;
+		std::cout << "mp2.max_size()	\u001b[16G= " << mp2.max_size() << std::endl;
+		std::cout << "mp2.empty()		\u001b[16G= " << mp2.empty() << std::endl << std::endl;
 
 		std::cout << "--- Modifier functions ---" << std::endl;
 
@@ -127,7 +131,7 @@ int main()
 		ft::map<std::string, std::string>::iterator	ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it.base()->get_value().first << "]\u001b[48G= " << it.base()->get_value().second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\u001b[48G= " << it->second << std::endl;
 			it++;
 		}
 
@@ -141,13 +145,19 @@ int main()
 		ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it.base()->get_value().first << "]\u001b[48G= " << it.base()->get_value().second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\u001b[48G= " << it->second << std::endl;
 			it++;
 		}
 
 		std::cout << std::endl;
-		std::cout << std::endl;
 	}
+
+	gettimeofday(&end, 0);
+	long	seconds		= end.tv_sec - begin.tv_sec;
+	long	useconds	= end.tv_usec - begin.tv_usec;
+	double	time		= seconds * 1e6 + useconds;
+
+	std::cout << "Execution time: " << time << " microseconds." << std::endl;
 
 	return (0);
 }

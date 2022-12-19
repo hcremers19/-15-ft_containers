@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 11:43:11 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:47:54 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@
 #endif
 
 #include <iostream>
+#include <sys/time.h>
 
 #define NBR 20000
 
 int main()
 {
+	struct timeval	begin, end;
+	gettimeofday(&begin, 0);
+
 	{
 		std::cout << "----- INT VECTORS -----" << std::endl << std::endl;
 		ft::vector<int>					vct1;
@@ -74,7 +78,7 @@ int main()
 		ft::vector<int>::iterator	it2 = it + 7;
 		ite = vct1.end();
 
-		vct1.insert(it, 3, 555);
+		vct1.insert(it2, 3, 555);
 
 		std::cout << std::endl;
 
@@ -135,7 +139,7 @@ int main()
 		ft::vector<std::string>::iterator	it2 = it + 7;
 		ite = vct1.end();
 
-		vct1.insert(it, 3, "Five hundreds fifty-five");
+		vct1.insert(it2, 3, "Five hundreds fifty-five");
 
 		std::cout << std::endl;
 
@@ -144,6 +148,13 @@ int main()
 
 		std::cout << std::endl;
 	}
+
+	gettimeofday(&end, 0);
+	long	seconds		= end.tv_sec - begin.tv_sec;
+	long	useconds	= end.tv_usec - begin.tv_usec;
+	double	time		= seconds * 1e6 + useconds;
+
+	std::cout << "Execution time: " << time << " microseconds." << std::endl;
 
 	return (0);
 }

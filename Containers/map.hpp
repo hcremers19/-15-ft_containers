@@ -6,18 +6,22 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 11:04:13 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:54:24 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
 
-# include <functional>
+# include <cstddef>		// size_t
+# include <functional>	// std::less
+# include <memory>		// std::allocator
 
+# include "../Iterators/iterator_traits.hpp"
 # include "../Iterators/reverse_iterator.hpp"
 # include "../Iterators/tree_iterator.hpp"
 # include "../Others/pair.hpp"
+# include "../Others/red_black_node.hpp"
 # include "../Others/red_black_tree.hpp"
 
 namespace ft

@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 11:38:55 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:27:07 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # define RED	true
 # define BLACK	false
 
-# include <memory>
-# include <cstddef>
+# include <cstddef>		// std::size_t
+# include <functional>	// std::less
+# include <memory>		// std::allocator
 
 # include "pair.hpp"
 # include "red_black_node.hpp"
@@ -28,17 +29,17 @@ namespace ft
 	class red_black_tree
 	{
 		public:
-			typedef T													value_type;
-			typedef red_black_node<value_type, Compare>					node_type;
-			typedef red_black_node<const value_type, Compare>			node_const_type;
-			typedef typename Alloc::template rebind<node_type>::other	allocator_type;
-			typedef Compare												value_compare;
-			typedef red_black_tree<T, Alloc, Compare>					tree_type;
-			typedef	typename allocator_type::reference					reference;
-			typedef typename allocator_type::const_reference			const_reference;
-			typedef typename allocator_type::pointer					pointer;
-			typedef typename allocator_type::const_pointer				const_pointer;
-			typedef size_t												size_type;
+			typedef 			T											value_type;
+			typedef 			red_black_node<value_type, Compare>			node_type;
+			typedef 			red_black_node<const value_type, Compare>	node_const_type;
+			typedef typename	Alloc::template rebind<node_type>::other	allocator_type;
+			typedef 			Compare										value_compare;
+			typedef 			red_black_tree<T, Alloc, Compare>			tree_type;
+			typedef	typename	allocator_type::reference					reference;
+			typedef typename	allocator_type::const_reference				const_reference;
+			typedef typename	allocator_type::pointer						pointer;
+			typedef typename	allocator_type::const_pointer				const_pointer;
+			typedef 			size_t										size_type;
 
 		private:
 			node_type*		_root;

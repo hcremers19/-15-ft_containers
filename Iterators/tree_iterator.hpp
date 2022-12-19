@@ -6,15 +6,18 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:37:55 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 11:08:27 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:51:53 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_ITERATOR_HPP
 # define TREE_ITERATOR_HPP
 
-# include "iterator_traits.hpp"
+# include <cstddef>		// ptrdiff_t
+# include <functional>	// std::less
+
 # include "../Others/red_black_node.hpp"
+# include "iterator_traits.hpp"
 
 namespace ft
 {

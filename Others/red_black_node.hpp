@@ -6,14 +6,15 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 13:56:12 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 11:12:08 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:24:22 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_NODE_HPP
 # define RED_BLACK_NODE_HPP
 
-# include <memory>
+# include <cstddef>	// size_t
+# include <memory>	// std::allocator
 
 # define RED	true
 # define BLACK	false

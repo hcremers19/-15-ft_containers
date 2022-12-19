@@ -6,15 +6,16 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 11:05:39 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:09:41 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-# include <memory>
-# include <stdexcept>
+# include <cstddef>		// size_t
+# include <memory>		// std::allocator
+# include <stdexcept>	// std::out_of_range
 
 # include "../Iterators/iterator_traits.hpp"
 # include "../Iterators/random_access_iterator.hpp"
@@ -84,7 +85,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/vector/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL) : _alloc(alloc)
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value>::type* = NULL) : _alloc(alloc)
 			{
 				_size = ft::distance(first, last);
 				_capacity = _size;
@@ -467,7 +468,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/assign/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
-			void					assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
+			void					assign(InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value>::type* = NULL)
 			{
 				size_type	size = ft::distance(first, last);
 
@@ -643,7 +644,7 @@ namespace ft
 			Source: https://cplusplus.com/reference/vector/vector/insert/
 			-------------------------------------------------------------------------------- */
 			template<class InputIterator>
-			void					insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = NULL)
+			void					insert(iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value>::type* = NULL)
 			{
 				size_type	pos = ft::distance(begin(), position);
 				size_type	dist = ft::distance(first, last);

@@ -6,20 +6,19 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:56:33 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/16 11:05:39 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:17:44 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_TRAITS_HPP
 # define ITERATOR_TRAITS_HPP
 
-# include <cstddef>
+# include <cstddef>	// ptrdiff_t
+
+# include "iterator.hpp"
 
 namespace ft
 {
-	template<class Category, class T, class Distance, class Pointer, class Reference>
-	class iterator;
-
 	struct	input_iterator_tag			{};
 	struct	output_iterator_tag			{};
 	struct	forward_iterator_tag		{};

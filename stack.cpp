@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 11:43:02 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:48:02 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@
 #endif
 
 #include <iostream>
+#include <sys/time.h>
 
 #define NBR 20000
 
 int main()
 {
+	struct timeval	begin, end;
+	gettimeofday(&begin, 0);
+
 	{
 		std::cout << "----- INT STACKS -----" << std::endl << std::endl;
 		ft::stack<int>					stk1;
@@ -80,6 +84,13 @@ int main()
 
 		std::cout << std::endl;
 	}
+
+	gettimeofday(&end, 0);
+	long	seconds		= end.tv_sec - begin.tv_sec;
+	long	useconds	= end.tv_usec - begin.tv_usec;
+	double	time		= seconds * 1e6 + useconds;
+
+	std::cout << "Execution time: " << time << " microseconds." << std::endl;
 
 	return (0);
 }

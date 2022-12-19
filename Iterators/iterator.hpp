@@ -6,14 +6,14 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:12:18 by hcremers          #+#    #+#             */
-/*   Updated: 2022/11/22 10:59:17 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:11:33 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 
-# include <cstddef>
+# include <cstddef>	// ptrdiff_t
 
 namespace ft
 {
