@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 15:09:41 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/19 18:15:24 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../Iterators/iterator_traits.hpp"
 # include "../Iterators/random_access_iterator.hpp"
 # include "../Iterators/reverse_iterator.hpp"
+# include "../Others/algorithm.hpp"
 # include "../Others/type_traits.hpp"
 
 namespace ft
