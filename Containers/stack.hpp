@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 15:48:40 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:50:12 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,10 @@ namespace ft
 			}
 
 			template <class T1, class Container1>
-			friend bool operator==(const stack<T1, Container1> &lhs, const stack<T1, Container1> &rhs);
+			friend bool operator==(const stack<T1, Container1>& lhs, const stack<T1, Container1>& rhs);
 
 			template <class T1, class Container1>
- 			friend bool operator<(const stack<T1, Container1> &lhs, const stack<T1, Container1> &rhs);
-
+ 			friend bool operator<(const stack<T1, Container1>& lhs, const stack<T1, Container1>& rhs);
 	};
 	/* ----- RELATIONAL OPERATORS ----- */
 
