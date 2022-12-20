@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:53 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 10:37:55 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:48:40 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,13 @@ namespace ft
 				c.pop_back();
 				return;
 			}
+
+			template <class T1, class Container1>
+			friend bool operator==(const stack<T1, Container1> &lhs, const stack<T1, Container1> &rhs);
+
+			template <class T1, class Container1>
+ 			friend bool operator<(const stack<T1, Container1> &lhs, const stack<T1, Container1> &rhs);
+
 	};
 	/* ----- RELATIONAL OPERATORS ----- */
 
@@ -149,7 +156,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-		{return (lhs.c != rhs.c);}
+		{return (!(lhs == rhs));}
 
 	/* --------------------------------------------------------------------------------
 	- "Less than" operator for vector -
@@ -171,7 +178,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-		{return (lhs.c <= rhs.c);}
+		{return (!(rhs < lhs));}
 
 	/* --------------------------------------------------------------------------------
 	- "Greater than" operator for vector -
@@ -182,7 +189,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-		{return (lhs.c > rhs.c);}
+		{return (rhs < lhs);}
 
 	/* --------------------------------------------------------------------------------
 	- "Greater than or equal to" operator for vector -
@@ -193,7 +200,7 @@ namespace ft
 	-------------------------------------------------------------------------------- */
 	template<class T, class Container>
 	bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-		{return (lhs.c >= rhs.c);}
+		{return (!(lhs < rhs));}
 }
 
 #endif
