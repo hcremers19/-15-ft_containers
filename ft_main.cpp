@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 17:19:42 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:26:05 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	ft_vector();
 
 int main(int argc, char** argv)
 {
-	ft_map();
-	ft_stack();
 	ft_vector();
+	ft_stack();
+	ft_map();
 
 	if (argc != 2)
 	{

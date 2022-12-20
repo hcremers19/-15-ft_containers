@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 13:47:38 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:23:12 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	std_stack()
 	long	useconds	= end.tv_usec - begin.tv_usec;
 	double	time		= seconds * 1e6 + useconds;
 
-	std::cout << "Execution time: " << time << " microseconds." << std::endl;
+	std::cout << "Execution time for std_stack: " << time << " microseconds." << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 

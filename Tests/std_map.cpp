@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 13:47:34 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:22:12 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	std_map()
 		std::cout << "--- Modifier functions ---" << std::endl;
 
 		mp1.insert(ft::pair<std::string, std::string>("Nineteen", "Forty-two"));
-		mp1.insert(ft::pair<std::string, std::string>("One thousand three hundred thirty-seven", "Nineteen"));
-		mp1.insert(ft::pair<std::string, std::string>("Forty-two", "One thousand three hundred thirty-seven"));
+		mp1.insert(ft::pair<std::string, std::string>("One thousand three hundreds thirty-seven", "Nineteen"));
+		mp1.insert(ft::pair<std::string, std::string>("Forty-two", "One thousand three hundreds thirty-seven"));
 
 		mp1.insert(ft::make_pair("One hundred", "Five hundreds"));
 		mp1.insert(ft::make_pair("Zero", "One thousand"));
@@ -153,7 +153,7 @@ void	std_map()
 	long	useconds	= end.tv_usec - begin.tv_usec;
 	double	time		= seconds * 1e6 + useconds;
 
-	std::cout << "Execution time: " << time << " microseconds." << std::endl;
+	std::cout << "Execution time for std_map: " << time << " microseconds." << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 

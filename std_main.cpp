@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:33:25 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 17:19:58 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:26:12 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	std_vector();
 
 int main(int argc, char** argv)
 {
-	std_map();
-	std_stack();
 	std_vector();
+	std_stack();
+	std_map();
 
 	if (argc != 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 13:47:27 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:22:19 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ft_vector()
 
 		vct1.push_back("Forty-two");
 		vct1.push_back("Nineteen");
-		vct1.push_back("One thousand three hundred thirty-seven");
+		vct1.push_back("One thousand three hundreds thirty-seven");
 
 		std::cout << "vct1.at(0)	\x1b[16G= " << vct1.at(0) << std::endl;
 		std::cout << "vct1.at(1)	\x1b[16G= " << vct1.at(1) << std::endl << std::endl;
@@ -150,7 +150,7 @@ void	ft_vector()
 	long	useconds	= end.tv_usec - begin.tv_usec;
 	double	time		= seconds * 1e6 + useconds;
 
-	std::cout << "Execution time: " << time << " microseconds." << std::endl;
+	std::cout << "Execution time for ft_vector: " << time << " microseconds." << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 
