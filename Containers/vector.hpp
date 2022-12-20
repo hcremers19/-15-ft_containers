@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 18:15:24 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 11:48:25 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ namespace ft
 				_capacity = _size;
 				_container = _alloc.allocate(_size);
 
-				for (size_type i = 0; first != last; i++)
+				for (size_type i = 0; first != last; first++, i++)
 					_alloc.construct(_container + i, *first);
 
 				return;
@@ -586,7 +586,6 @@ namespace ft
 			-------------------------------------------------------------------------------- */
 			void					insert(iterator position, size_type n, const value_type& val)
 			{
-
 				size_type	pos = ft::distance(begin(), position);
 
 				if (_size + n > _capacity)
@@ -599,7 +598,7 @@ namespace ft
 						size *= 2;
 
 					if (_capacity * size > max_size())
-						throw std::out_of_range("vector::insert");
+						throw (std::out_of_range("vector::insert"));
 
 					pointer	tmp = _alloc.allocate(_capacity * size);
 
@@ -624,10 +623,14 @@ namespace ft
 				}
 				else
 				{
-					for (size_t i = _size - 1; i >= static_cast<size_t>(pos); i--)
+					for (int i = _size - 1; i >= pos; i--)
+					{
+						if (i < 0)
+							break;
 						_container[i + n] = _container[i];
+					}
 
-					for (size_t i = pos; i < pos + n; i++)
+					for (size_type i = pos; i < (pos + n); i++)
 						_alloc.construct(_container + i, val);
 				}
 				_size += n;

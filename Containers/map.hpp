@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 14:54:24 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 10:45:51 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../Iterators/iterator_traits.hpp"
 # include "../Iterators/reverse_iterator.hpp"
 # include "../Iterators/tree_iterator.hpp"
+# include "../Others/algorithm.hpp"
 # include "../Others/pair.hpp"
 # include "../Others/red_black_node.hpp"
 # include "../Others/red_black_tree.hpp"
@@ -412,13 +413,13 @@ namespace ft
 			{
 				while (first != last)
 				{
-					iterator	tmp = first;
-
-					++first;
-					if (_tree.erase(*tmp))
+					if (_tree.erase(*first))
 						_size--;
+
+					first++;
 				}
-				return;
+
+				return ;
 			}
 
 			/* --------------------------------------------------------------------------------
@@ -642,31 +643,31 @@ namespace ft
 				{return (allocator_type());}
 
 	};
-	/* ----- NON-MEMBER OPERATOR OVERLOADS (C++20) ----- */
+	/* ----- NON-MEMBER OPERATOR OVERLOADS ----- */
 
-	// template<typename Key, typename T, typename Compare, typename Alloc>
-	// bool	operator==(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-	// 	{return (equal(lhs.begin(), lhs.end(), rhs.begin()) && lhs.size() == rhs.size());}
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	bool	operator==(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+		{return (equal(lhs.begin(), lhs.end(), rhs.begin()) && lhs.size() == rhs.size());}
 
-	// template<typename Key, typename T, typename Compare, typename Alloc>
-	// bool	operator<(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-	// 	{return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	bool	operator<(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+		{return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));}
 
-	// template<typename Key, typename T, typename Compare, typename Alloc>
-	// bool	operator!=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-	// 	{return (!(lhs == rhs));}
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	bool	operator!=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+		{return (!(lhs == rhs));}
 
-	// template<typename Key, typename T, typename Compare, typename Alloc>
-	// bool	operator>(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-	// 	{return (rhs < lhs);}
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	bool	operator>(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+		{return (rhs < lhs);}
 
-	// template<typename Key, typename T, typename Compare, typename Alloc>
-	// bool	operator<=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-	// 	{return (!(rhs < lhs));}
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	bool	operator<=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+		{return (!(rhs < lhs));}
 
-	// template<typename Key, typename T, typename Compare, typename Alloc>
-	// bool	operator>=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-	// 	{return (!(lhs < rhs));}
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	bool	operator>=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+		{return (!(lhs < rhs));}
 }
 
 #endif
