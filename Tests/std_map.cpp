@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 17:17:15 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 13:47:34 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	std_map()
 		mp1.clear();
 
 		std::cout << "--- Capacity functions ---" << std::endl;
-		std::cout << "mp1.size()		\u001b[16G= " << mp1.size() << std::endl;
-		std::cout << "mp1.max_size()	\u001b[16G= " << mp1.max_size() << std::endl;
-		std::cout << "mp1.empty()		\u001b[16G= " << mp1.empty() << std::endl << std::endl;
+		std::cout << "mp1.size()		\x1b[16G= " << mp1.size() << std::endl;
+		std::cout << "mp1.max_size()	\x1b[16G= " << mp1.max_size() << std::endl;
+		std::cout << "mp1.empty()		\x1b[16G= " << mp1.empty() << std::endl << std::endl;
 
-		std::cout << "mp2.size()		\u001b[16G= " << mp2.size() << std::endl;
-		std::cout << "mp2.max_size()	\u001b[16G= " << mp2.max_size() << std::endl;
-		std::cout << "mp2.empty()		\u001b[16G= " << mp2.empty() << std::endl << std::endl;
+		std::cout << "mp2.size()		\x1b[16G= " << mp2.size() << std::endl;
+		std::cout << "mp2.max_size()	\x1b[16G= " << mp2.max_size() << std::endl;
+		std::cout << "mp2.empty()		\x1b[16G= " << mp2.empty() << std::endl << std::endl;
 
 		std::cout << "--- Modifier functions ---" << std::endl;
 
@@ -64,7 +64,7 @@ void	std_map()
 		ft::map<int, int>::iterator	ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it->first << "]	\u001b[12G= " << it->second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\x1b[12G= " << it->second << std::endl;
 			it++;
 		}
 
@@ -78,7 +78,7 @@ void	std_map()
 		ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it->first << "]	\u001b[12G= " << it->second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\x1b[12G= " << it->second << std::endl;
 			it++;
 		}
 
@@ -105,13 +105,13 @@ void	std_map()
 		mp1.clear();
 
 		std::cout << "--- Capacity functions ---" << std::endl;
-		std::cout << "mp1.size()		\u001b[16G= " << mp1.size() << std::endl;
-		std::cout << "mp1.max_size()	\u001b[16G= " << mp1.max_size() << std::endl;
-		std::cout << "mp1.empty()		\u001b[16G= " << mp1.empty() << std::endl << std::endl;
+		std::cout << "mp1.size()		\x1b[16G= " << mp1.size() << std::endl;
+		std::cout << "mp1.max_size()	\x1b[16G= " << mp1.max_size() << std::endl;
+		std::cout << "mp1.empty()		\x1b[16G= " << mp1.empty() << std::endl << std::endl;
 
-		std::cout << "mp2.size()		\u001b[16G= " << mp2.size() << std::endl;
-		std::cout << "mp2.max_size()	\u001b[16G= " << mp2.max_size() << std::endl;
-		std::cout << "mp2.empty()		\u001b[16G= " << mp2.empty() << std::endl << std::endl;
+		std::cout << "mp2.size()		\x1b[16G= " << mp2.size() << std::endl;
+		std::cout << "mp2.max_size()	\x1b[16G= " << mp2.max_size() << std::endl;
+		std::cout << "mp2.empty()		\x1b[16G= " << mp2.empty() << std::endl << std::endl;
 
 		std::cout << "--- Modifier functions ---" << std::endl;
 
@@ -127,7 +127,7 @@ void	std_map()
 		ft::map<std::string, std::string>::iterator	ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it->first << "]	\u001b[48G= " << it->second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\x1b[48G= " << it->second << std::endl;
 			it++;
 		}
 
@@ -141,7 +141,7 @@ void	std_map()
 		ite = mp1.end();
 		while (it != ite)
 		{
-			std::cout << "mp1[" << it->first << "]	\u001b[48G= " << it->second << std::endl;
+			std::cout << "mp1[" << it->first << "]	\x1b[48G= " << it->second << std::endl;
 			it++;
 		}
 

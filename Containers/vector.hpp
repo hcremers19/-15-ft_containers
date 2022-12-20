@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 11:48:25 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 13:53:34 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -623,12 +623,8 @@ namespace ft
 				}
 				else
 				{
-					for (int i = _size - 1; i >= pos; i--)
-					{
-						if (i < 0)
-							break;
+					for (ssize_t i = _size - 1; i >= static_cast<ssize_t>(pos); i--)
 						_container[i + n] = _container[i];
-					}
 
 					for (size_type i = pos; i < (pos + n); i++)
 						_alloc.construct(_container + i, val);
@@ -683,9 +679,9 @@ namespace ft
 				}
 				else
 				{
-					for (size_t i = _size - 1; i >= static_cast<size_t>(pos); i--)
+					for (ssize_t i = _size - 1; i >= static_cast<ssize_t>(pos); i--)
 						_container[i + dist] = _container[i];
-					for (size_t i = pos; i < pos + dist; i++)
+					for (size_t i = pos; i < (pos + dist); i++)
 						_alloc.construct(_container + i, *first++);
 				}
 				_size += dist;

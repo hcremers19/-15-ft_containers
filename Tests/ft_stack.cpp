@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:17:48 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/19 17:16:42 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 13:47:21 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	ft_stack()
 		stk2.push(1337);
 
 		std::cout << "--- Capacity functions ---" << std::endl;
-		std::cout << "stk1.size() 	\u001b[16G= " << stk1.size()	<< std::endl;
-		std::cout << "stk1.empty()	\u001b[16G= " << stk1.empty()	<< std::endl << std::endl;
+		std::cout << "stk1.size() 	\x1b[16G= " << stk1.size()	<< std::endl;
+		std::cout << "stk1.empty()	\x1b[16G= " << stk1.empty()	<< std::endl << std::endl;
 
-		std::cout << "stk2.size() 	\u001b[16G= " << stk2.size()	<< std::endl;
-		std::cout << "stk2.empty()	\u001b[16G= " << stk2.empty()	<< std::endl << std::endl;
+		std::cout << "stk2.size() 	\x1b[16G= " << stk2.size()	<< std::endl;
+		std::cout << "stk2.empty()	\x1b[16G= " << stk2.empty()	<< std::endl << std::endl;
 
 		while (stk2.size())
 		{
-			std::cout << "stk2.top()	\u001b[16G= " << stk2.top()	<< std::endl;
+			std::cout << "stk2.top()	\x1b[16G= " << stk2.top()	<< std::endl;
 			stk2.pop();
 		}
 
@@ -66,15 +66,15 @@ void	ft_stack()
 		stk2.push("One thousand three hundreds thirty-seven");
 
 		std::cout << "--- Capacity functions ---" << std::endl;
-		std::cout << "stk1.size()	\u001b[16G= " << stk1.size()	<< std::endl;
-		std::cout << "stk1.empty()	\u001b[16G= " << stk1.empty()	<< std::endl << std::endl;
+		std::cout << "stk1.size()	\x1b[16G= " << stk1.size()	<< std::endl;
+		std::cout << "stk1.empty()	\x1b[16G= " << stk1.empty()	<< std::endl << std::endl;
 
-		std::cout << "stk2.size()	\u001b[16G= " << stk2.size()	<< std::endl;
-		std::cout << "stk2.empty()	\u001b[16G= " << stk2.empty()	<< std::endl << std::endl;
+		std::cout << "stk2.size()	\x1b[16G= " << stk2.size()	<< std::endl;
+		std::cout << "stk2.empty()	\x1b[16G= " << stk2.empty()	<< std::endl << std::endl;
 
 		while (stk2.size())
 		{
-			std::cout << "stk2.top()	\u001b[16G= " << stk2.top()	<< std::endl;
+			std::cout << "stk2.top()	\x1b[16G= " << stk2.top()	<< std::endl;
 			stk2.pop();
 		}
 
