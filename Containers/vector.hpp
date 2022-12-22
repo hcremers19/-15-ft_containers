@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:38 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 13:53:34 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/20 16:09:53 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <cstddef>		// size_t
 # include <memory>		// std::allocator
 # include <stdexcept>	// std::out_of_range
+# include <sys/types.h> // ssize_t
 
 # include "../Iterators/iterator_traits.hpp"
 # include "../Iterators/random_access_iterator.hpp"

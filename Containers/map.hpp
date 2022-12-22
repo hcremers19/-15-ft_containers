@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/20 15:37:17 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:39:27 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,9 @@ namespace ft
 			{
 				while (first != last)
 				{
-					pair<red_black_node<value_type, value_compare>*, bool>	tmp = _tree.insert(*first++);
+					pair<red_black_node<value_type, value_compare>*, bool>	tmp = _tree.insert(*first);
+
+					first++;
 
 					if (tmp.second)
 						_size++;
