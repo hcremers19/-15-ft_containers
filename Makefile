@@ -6,7 +6,7 @@
 #    By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 14:08:18 by hcremers          #+#    #+#              #
-#    Updated: 2022/12/19 17:13:51 by hcremers         ###   ########.fr        #
+#    Updated: 2022/12/25 12:19:51 by hcremers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ SRC2			= std_main.cpp \
 				Tests/std_vector.cpp \
 
 OBJ				= $(OBJ1) $(OBJ2)
-OBJ1			= $(SRC1:.c=.o)
-OBJ2			= $(SRC2:.c=.o)
+OBJ1			= $(SRC1:.cpp=.o)
+OBJ2			= $(SRC2:.cpp=.o)
 
 CC				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98 -g
@@ -46,7 +46,7 @@ $(NAME):		$(OBJ)
 				$(CC) $(CFLAGS) $(OBJ2) -o $(NAME2)
 
 clean:
-				$(RM) $(wildcard *.o)
+				$(RM) $(wildcard *.o) $(wildcard */*.o)
 
 fclean:			clean
 				$(RM) $(NAME)
