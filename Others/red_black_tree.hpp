@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:02:21 by ldelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 15:27:07 by hcremers         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:27:35 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ namespace ft
 			bool					erase(const value_type& val)
 			{
 				node_type*	z = search(val);
+
 				return (erase(z));
 			}
 
@@ -488,8 +489,8 @@ namespace ft
 						k = _root;
 					}
 				}
-
 				k->set_color(BLACK);
+
 				return;
 			}
 

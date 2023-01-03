@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:46:56 by hcremers          #+#    #+#             */
-/*   Updated: 2022/12/22 14:39:27 by hcremers         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:09:42 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,8 +413,12 @@ namespace ft
 			-------------------------------------------------------------------------------- */
 			void									erase(iterator first, iterator last)
 			{
+				iterator	tmp;
+
 				while (first != last)
 				{
+					tmp = first;
+
 					if (_tree.erase(*first))
 						_size--;
 
